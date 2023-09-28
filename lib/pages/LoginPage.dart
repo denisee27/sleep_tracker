@@ -73,156 +73,151 @@ class _LoginPageState extends State<LoginPage> {
         return false;
       },
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            height: 700,
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            margin: EdgeInsets.only(left: 10, right: 10, top: 100),
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 80.0, bottom: 10.0),
-                  child: Image.asset(
-                    'assets/images/logo.jpg',
-                    width: 300,
-                    height: 140,
-                  ),
+        body: Container(
+          padding: EdgeInsets.symmetric(vertical: 70, horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 80.0, bottom: 10.0),
+                child: Image.asset(
+                  'assets/images/logo.jpg',
+                  width: 300,
+                  height: 140,
                 ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _gap(),
-                      TextFormField(
-                        controller: emailC,
+              ),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _gap(),
+                    TextFormField(
+                      controller: emailC,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+
+                        bool _emailValid = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value);
+                        if (!_emailValid) {
+                          return 'Please enter a valid email';
+                        }
+
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        // filled: true,
+                        // fillColor: Color(0xFFE0E0E0)
+                      ),
+                    ),
+                    _gap(),
+                    SizedBox(
+                      width: 400,
+                      child: TextFormField(
+                        controller: passwordC,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
                           }
 
-                          bool _emailValid = RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                              .hasMatch(value);
-                          if (!_emailValid) {
-                            return 'Please enter a valid email';
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters';
                           }
-
                           return null;
                         },
-                        decoration: const InputDecoration(
-                          labelText: 'Email',
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          // filled: true,
-                          // fillColor: Color(0xFFE0E0E0)
-                        ),
-                      ),
-                      _gap(),
-                      SizedBox(
-                        width: 400,
-                        child: TextFormField(
-                          controller: passwordC,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-
-                            if (value.length < 6) {
-                              return 'Password must be at least 6 characters';
-                            }
-                            return null;
-                          },
-                          obscureText: !_isPasswordVisible,
-                          decoration: InputDecoration(
-                              labelText: 'Password',
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)),
-                              ),
-                              // filled: true,
-                              // fillColor: Color(0xFFE0E0E0),
-                              // prefixIcon:
-                              //     const Icon(Icons.lock_outline_rounded),
-                              suffixIcon: IconButton(
-                                icon: Icon(_isPasswordVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
-                                onPressed: () {
-                                  setState(() {
-                                    _isPasswordVisible = !_isPasswordVisible;
-                                  });
-                                },
-                              )),
-                        ),
-                      ),
-                      _gap(),
-                      SizedBox(
-                        width: 400,
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: InkWell(
-                            child: Text(
-                              "Forgot Password ?",
-                              style: TextStyle(color: Colors.blue[900]),
+                        obscureText: !_isPasswordVisible,
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
                             ),
-                            onTap: () => "https://www.google.com",
-                          ),
-                        ),
+                            // filled: true,
+                            // fillColor: Color(0xFFE0E0E0),
+                            // prefixIcon:
+                            //     const Icon(Icons.lock_outline_rounded),
+                            suffixIcon: IconButton(
+                              icon: Icon(_isPasswordVisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible = !_isPasswordVisible;
+                                });
+                              },
+                            )),
                       ),
-                    ],
-                  ),
-                ),
-                Spacer(),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SizedBox(
-                    width: 400,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[900],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          'Sign in',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WelcomeName()));
-                        // handleLogin();
-                      },
                     ),
-                  ),
-                ),
-                _gap(),
-                SizedBox(
-                  width: 400,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: InkWell(
-                      child: Text(
-                        "Don't have an account yet? Sign Up Here",
-                        style: TextStyle(color: Colors.blue[900]),
+                    _gap(),
+                    SizedBox(
+                      width: 400,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          child: Text(
+                            "Forgot Password ?",
+                            style: TextStyle(color: Colors.blue[900]),
+                          ),
+                          onTap: () => "https://www.google.com",
+                        ),
                       ),
-                      onTap: () => Navigator.push(
+                    ),
+                  ],
+                ),
+              ),
+              Spacer(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: 400,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[900],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7)),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(
+                        'Sign in',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegisterPage())),
-                    ),
+                              builder: (context) => WelcomeName()));
+                      // handleLogin();
+                    },
                   ),
                 ),
-              ],
-            ),
+              ),
+              _gap(),
+              SizedBox(
+                width: 400,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: InkWell(
+                    child: Text(
+                      "Don't have an account yet? Sign Up Here",
+                      style: TextStyle(color: Colors.blue[900]),
+                    ),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterPage())),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,14 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sleeptracker_app/pages/welcome/WelcomeGender.dart';
+import 'package:intl/intl.dart';
+import 'package:numberpicker/numberpicker.dart';
+import 'package:sleeptracker_app/pages/HomePage.dart';
 
-class WelcomeName extends StatefulWidget {
-  const WelcomeName({super.key});
+class WelcomeWeight extends StatefulWidget {
+  const WelcomeWeight({super.key});
 
   @override
-  State<WelcomeName> createState() => _WelcomeNameState();
+  State<WelcomeWeight> createState() => _WelcomeWeightState();
 }
 
-class _WelcomeNameState extends State<WelcomeName> {
+class _WelcomeWeightState extends State<WelcomeWeight> {
+  int _currentValue = 50;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +38,7 @@ class _WelcomeNameState extends State<WelcomeName> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Type your name",
+                        "Choose Weight",
                         style: TextStyle(
                             fontSize: 17, fontWeight: FontWeight.w400),
                       ))
@@ -44,27 +49,33 @@ class _WelcomeNameState extends State<WelcomeName> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Center(
-                      child: TextFormField(
-                        // controller: emailC,
-                        decoration: const InputDecoration(
-                          labelText: 'Name',
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          // filled: true,
-                          // fillColor: Color(0xFFE0E0E0)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      NumberPicker(
+                        value: _currentValue,
+                        minValue: 0,
+                        maxValue: 200,
+                        onChanged: (value) =>
+                            setState(() => _currentValue = value),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.black26),
                         ),
                       ),
-                    ),
-                  ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Kg",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  )
                 ],
               ),
             ),
-            // Spacer(),
             Container(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -82,21 +93,19 @@ class _WelcomeNameState extends State<WelcomeName> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Next',
+                              'Save',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Icon(Icons.arrow_forward)
+                            Icon(Icons.save)
                           ],
                         )),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => WelcomeGender()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                       // handleLogin();
                     },
                   ),
