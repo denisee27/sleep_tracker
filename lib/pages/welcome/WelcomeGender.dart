@@ -14,6 +14,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(32, 34, 63, 1),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 70, horizontal: 20),
         child: Column(
@@ -27,7 +28,9 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                       child: Text(
                         "Welcome To Sleepify",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 26),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 26),
                       )),
                   SizedBox(
                     height: 10,
@@ -37,7 +40,9 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                       child: Text(
                         "Choose Gender",
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w400),
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400),
                       ))
                 ],
               ),
@@ -53,11 +58,14 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                         width: 400,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            foregroundColor:
-                                gender == 0 ? Colors.white : Colors.blue[900],
-                            backgroundColor: gender == 0
-                                ? Colors.blue[900]
-                                : Colors.blue[50],
+                            side: BorderSide(
+                              width: 2.3,
+                              color: gender == 0
+                                  ? Color.fromRGBO(0, 144, 144, 1)
+                                  : Color.fromRGBO(39, 46, 73, 1),
+                            ),
+                            foregroundColor: Colors.white,
+                            backgroundColor: Color.fromRGBO(39, 46, 73, 1),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(7)),
                           ),
@@ -91,11 +99,14 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                         width: 400,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            foregroundColor:
-                                gender == 1 ? Colors.white : Colors.blue[900],
-                            backgroundColor: gender == 1
-                                ? Colors.blue[900]
-                                : Colors.blue[50],
+                            side: BorderSide(
+                              width: 2.3,
+                              color: gender == 1
+                                  ? Color.fromRGBO(0, 144, 144, 1)
+                                  : Color.fromRGBO(39, 46, 73, 1),
+                            ),
+                            foregroundColor: Colors.white,
+                            backgroundColor: Color.fromRGBO(39, 46, 73, 1),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(7)),
                           ),
@@ -104,7 +115,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                '🙋‍♂️ Female',
+                                '🙋‍♂️ Male',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
@@ -130,7 +141,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                   width: 400,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[900],
+                      backgroundColor: Color.fromRGBO(0, 144, 144, 1),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7)),
                     ),

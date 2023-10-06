@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:sleeptracker_app/pages/jurnaltidur/JurnalPage.dart';
+import 'package:sleeptracker_app/pages/profile/ProdilePage.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeName.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,197 +39,134 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     activeIndex = widget.index ?? 0;
-    pages = [
-      WelcomeName(),
-    ];
+    pages = [JurnalPage(), WelcomeName(), ProfilePage()];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          child: Container(
-            height: 60.0,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: InkWell(
-                    child: Container(
-                        padding: EdgeInsets.only(top: 5),
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.home_filled,
-                              color: activeIndex == 0
-                                  ? Colors.blue[900]
-                                  : Colors.grey[600],
-                            ),
-                            _gapTitle(),
-                            Text(
-                              "Beranda",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: activeIndex == 0
-                                      ? Colors.blue[900]
-                                      : Colors.grey[600],
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        )),
-                    onTap: () => {
-                      setState(() {
-                        searchBox != false ? searchBox = false : false;
-                      }),
-                      changeActivePage(0)
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Container(
-                        padding: EdgeInsets.only(top: 5),
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.move_to_inbox_rounded,
-                              color: activeIndex == 1
-                                  ? Colors.blue[900]
-                                  : Colors.grey[600],
-                            ),
-                            Text(
-                              "Transfer Material",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: activeIndex == 1
-                                      ? Colors.blue[900]
-                                      : Colors.grey[600],
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        )),
-                    onTap: () => {
-                      setState(() {
-                        searchBox != false ? searchBox = false : false;
-                      }),
-                      changeActivePage(1),
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.blue[900],
-                        ),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Icon(
-                            Icons.outbox_outlined,
-                            color: Colors.white,
+      backgroundColor: Color.fromRGBO(32, 34, 63, 1),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: Container(
+          decoration: BoxDecoration(color: Color.fromRGBO(39, 46, 73, 1)),
+          height: 60.0,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: InkWell(
+                  child: Container(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.auto_stories_outlined,
+                            color: activeIndex == 0
+                                ? Color.fromRGBO(255, 199, 84, 1)
+                                : Color.fromRGBO(98, 126, 174, 1),
+                            size: 30,
                           ),
-                        )),
-                    onTap: () => {},
-                  ),
+                          _gapTitle(),
+                          Text(
+                            "Jurnal Tidur",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: activeIndex == 0
+                                    ? Colors.white
+                                    : Color.fromRGBO(98, 126, 174, 1),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
+                  onTap: () => {changeActivePage(0)},
                 ),
-                Expanded(
-                  child: InkWell(
-                    child: Container(
-                        padding: EdgeInsets.only(top: 5),
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.pending_actions_rounded,
-                              color: activeIndex == 3
-                                  ? Colors.blue[900]
-                                  : Colors.grey[600],
-                            ),
-                            _gapTitle(),
-                            Text(
-                              "History",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: activeIndex == 3
-                                      ? Colors.blue[900]
-                                      : Colors.grey[600],
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        )),
-                    onTap: () => {
-                      setState(() {
-                        searchBox != false ? searchBox = false : false;
-                      }),
-                      changeActivePage(3)
-                    },
-                  ),
+              ),
+              Expanded(
+                child: InkWell(
+                  child: Container(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.dark_mode_rounded,
+                            color: activeIndex == 3
+                                ? Color.fromRGBO(255, 199, 84, 1)
+                                : Color.fromRGBO(98, 126, 174, 1),
+                            size: 30,
+                          ),
+                          _gapTitle(),
+                          Text(
+                            "Sleep",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: activeIndex == 3
+                                    ? Colors.white
+                                    : Color.fromRGBO(98, 126, 174, 1),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
+                  onTap: () => {
+                    setState(() {
+                      searchBox != false ? searchBox = false : false;
+                    }),
+                    changeActivePage(3)
+                  },
                 ),
-                Expanded(
-                  child: InkWell(
-                    child: Container(
-                        padding: EdgeInsets.only(top: 5),
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.assignment_return_outlined,
-                              color: activeIndex == 4
-                                  ? Colors.blue[900]
-                                  : Colors.grey[600],
-                            ),
-                            _gapTitle(),
-                            Text(
-                              "Material Return",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: activeIndex == 4
-                                      ? Colors.blue[900]
-                                      : Colors.grey[600],
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        )),
-                    onTap: () => {
-                      setState(() {
-                        searchBox != false ? searchBox = false : false;
-                      }),
-                      changeActivePage(4)
-                    },
-                  ),
+              ),
+              Expanded(
+                child: InkWell(
+                  child: Container(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.person,
+                            color: activeIndex == 2
+                                ? Color.fromRGBO(255, 199, 84, 1)
+                                : Color.fromRGBO(98, 126, 174, 1),
+                            size: 33,
+                          ),
+                          _gapTitle(),
+                          Text(
+                            "Profile",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: activeIndex == 2
+                                    ? Colors.white
+                                    : Color.fromRGBO(98, 126, 174, 1),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
+                  onTap: () => {changeActivePage(2)},
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Container(
-            color: Colors.grey[100],
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverAppBar(
-                  forceElevated: true, //* here
-                  elevation: 3, //* question having 0 here
-                  shadowColor: Colors.black,
-                  backgroundColor: Colors.white,
-                  automaticallyImplyLeading: false,
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [Container(child: pages[activeIndex])],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
+      ),
+      body: Container(child: pages[activeIndex]),
+      // body: SizedBox(
+      //   width: MediaQuery.of(context).size.width,
+      //   child: Container(
+      //     color: Color.fromRGBO(32, 34, 63, 1),
+      //     child: CustomScrollView(
+      //       slivers: <Widget>[
+      //         SliverList(
+      //           delegate: SliverChildListDelegate(
+      //             [Container(child: pages[activeIndex])],
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // )
+    );
   }
 
   Widget _gap() => const SizedBox(height: 5);

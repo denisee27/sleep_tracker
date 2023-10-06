@@ -12,6 +12,7 @@ class _WelcomeNameState extends State<WelcomeName> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(32, 34, 63, 1),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 70, horizontal: 20),
         child: Column(
@@ -25,7 +26,9 @@ class _WelcomeNameState extends State<WelcomeName> {
                       child: Text(
                         "Welcome To Sleepify",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 26),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 26,
+                            color: Colors.white),
                       )),
                   SizedBox(
                     height: 10,
@@ -35,7 +38,9 @@ class _WelcomeNameState extends State<WelcomeName> {
                       child: Text(
                         "Type your name",
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w400),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),
                       ))
                 ],
               ),
@@ -48,15 +53,23 @@ class _WelcomeNameState extends State<WelcomeName> {
                     alignment: Alignment.center,
                     child: Center(
                       child: TextFormField(
+                        style: TextStyle(color: Colors.white),
                         // controller: emailC,
-                        decoration: const InputDecoration(
-                          labelText: 'Name',
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(39, 46, 73, 1),
+                              width: 2.0,
+                            ),
                           ),
-                          // filled: true,
-                          // fillColor: Color(0xFFE0E0E0)
+                          labelText: 'Name',
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none,
+                          focusColor: Colors.white,
+                          floatingLabelStyle: TextStyle(color: Colors.white),
+                          filled: true,
+                          fillColor: Color.fromRGBO(39, 46, 73, 1),
                         ),
                       ),
                     ),
@@ -72,7 +85,7 @@ class _WelcomeNameState extends State<WelcomeName> {
                   width: 400,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[900],
+                      backgroundColor: Color.fromRGBO(0, 144, 144, 1),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7)),
                     ),

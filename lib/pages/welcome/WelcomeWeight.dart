@@ -17,6 +17,7 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(32, 34, 63, 1),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 70, horizontal: 20),
         child: Column(
@@ -30,7 +31,9 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                       child: Text(
                         "Welcome To Sleepify",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 26),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 26),
                       )),
                   SizedBox(
                     height: 10,
@@ -40,7 +43,9 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                       child: Text(
                         "Choose Weight",
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w400),
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400),
                       ))
                 ],
               ),
@@ -55,21 +60,35 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                       NumberPicker(
                         value: _currentValue,
                         minValue: 0,
-                        maxValue: 200,
+                        maxValue: 500,
                         onChanged: (value) =>
                             setState(() => _currentValue = value),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.black26),
+                          border:
+                              Border.all(color: Color.fromRGBO(0, 144, 144, 1)),
+                        ),
+                        selectedTextStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors
+                              .white, // Ubah warna teks (value) menjadi putih
+                        ),
+                        textStyle: TextStyle(
+                          fontSize: 14,
+                          color: Colors
+                              .grey, // Ubah warna teks (value) menjadi putih
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                       Text(
-                        "Kg",
+                        "Cm",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600),
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
                       )
                     ],
                   )
@@ -83,7 +102,7 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                   width: 400,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[900],
+                      backgroundColor: Color.fromRGBO(0, 144, 144, 1),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7)),
                     ),

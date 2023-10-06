@@ -18,6 +18,7 @@ class _WelcomeBornState extends State<WelcomeBorn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(32, 34, 63, 1),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 70, horizontal: 20),
         child: Column(
@@ -31,7 +32,9 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                       child: Text(
                         "Welcome To Sleepify",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 26),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 26),
                       )),
                   SizedBox(
                     height: 10,
@@ -41,7 +44,9 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                       child: Text(
                         "Choose Born Of Date",
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w400),
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400),
                       ))
                 ],
               ),
@@ -54,13 +59,22 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: TextFormField(
+                      style: TextStyle(color: Colors.white),
                       controller: creationDateC,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      decoration: InputDecoration(
+                        labelText: 'Choose Date',
+                        labelStyle: TextStyle(color: Colors.white),
+                        focusColor: Colors.white,
+                        floatingLabelStyle: TextStyle(color: Colors.white),
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(39, 46, 73, 1),
+                            width: 2.0,
+                          ),
                         ),
-                        hintText: 'Choose Date',
-                        labelText: 'Creation Date',
+                        fillColor: Color.fromRGBO(39, 46, 73, 1),
                       ),
                       onTap: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -85,7 +99,7 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                   width: 400,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[900],
+                      backgroundColor: Color.fromRGBO(0, 144, 144, 1),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7)),
                     ),

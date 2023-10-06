@@ -30,12 +30,24 @@ class _SplashPageState extends State<SplashPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Image.asset(
-        'assets/images/logo.jpg',
-        width: 300,
-        height: 340,
-      ),
-    ));
+        backgroundColor: Color.fromRGBO(32, 34, 63, 1),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Image.asset(
+                'assets/images/logo.png',
+              ),
+            ),
+            Center(
+                child: Text(
+              "Sleepy Panda",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold),
+            ))
+          ],
+        ));
   }
 }
