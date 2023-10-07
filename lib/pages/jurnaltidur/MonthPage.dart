@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sleeptracker_app/models/SleepHistory.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class WeekPage extends StatefulWidget {
-  const WeekPage({super.key});
+class MonthPage extends StatefulWidget {
+  const MonthPage({super.key});
 
   @override
-  State<WeekPage> createState() => _WeekPageState();
+  State<MonthPage> createState() => _MonthPageState();
 }
 
-class _WeekPageState extends State<WeekPage> {
+class _MonthPageState extends State<MonthPage> {
   TooltipBehavior? _tooltipMulaiTidur;
   TooltipBehavior? _tooltipBangunTidur;
   late TrackballBehavior _trackballBehavior;
@@ -106,39 +106,38 @@ class _WeekPageState extends State<WeekPage> {
               ),
             ),
             _spaceV(),
-            Column(
-              children: [
-                Center(
-                  child: Text(
+            Container(
+              width: 180,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
                     "2023",
                     style: TextStyle(color: Colors.white),
                   ),
-                ),
-                Container(
-                  width: 180,
-                  child: Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Icon(Icons.arrow_back_ios_new_rounded,
                           color: Colors.white, size: 15),
-                      _spaceH(),
+                      // _spaceH(),
                       Text(
-                        "1 Juni - 7 Juni",
+                        "Juni",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 15),
                       ),
-                      _spaceH(),
+                      // _spaceH(),
                       Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.white,
                         size: 15,
                       )
                     ],
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
             _spaceV(),
             Row(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sleeptracker_app/pages/jurnaltidur/DailyPage.dart';
+import 'package:sleeptracker_app/pages/jurnaltidur/MonthPage.dart';
 import 'package:sleeptracker_app/pages/jurnaltidur/WeekPage.dart';
 
 class JurnalPage extends StatefulWidget {
@@ -52,12 +53,16 @@ class _JurnalPageState extends State<JurnalPage> with TickerProviderStateMixin {
         child: Scaffold(
           backgroundColor: Color.fromRGBO(32, 34, 63, 1),
           appBar: AppBar(
+            elevation: 0.0,
             backgroundColor: Color.fromRGBO(32, 34, 63, 1),
             automaticallyImplyLeading: false,
             centerTitle: true,
             title: const Text('Jurnal Tidur'),
             bottom: TabBar(
-              indicatorColor: Colors.transparent,
+              indicator: UnderlineTabIndicator(
+                  insets: EdgeInsets.symmetric(horizontal: 70.0)),
+              indicatorColor: Colors.white,
+              indicatorPadding: EdgeInsets.symmetric(vertical: 10),
               controller: _tabController,
               tabs: const <Widget>[
                 Tab(
@@ -74,13 +79,7 @@ class _JurnalPageState extends State<JurnalPage> with TickerProviderStateMixin {
           ),
           body: TabBarView(
             controller: _tabController,
-            children: const <Widget>[
-              DailyPage(),
-              WeekPage(),
-              Center(
-                child: Text("It's sunny here"),
-              ),
-            ],
+            children: const <Widget>[DailyPage(), WeekPage(), MonthPage()],
           ),
         ));
   }
