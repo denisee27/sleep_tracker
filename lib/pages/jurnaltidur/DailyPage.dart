@@ -12,7 +12,7 @@ class _DailyPageState extends State<DailyPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Column(
           children: [
             Container(
@@ -78,7 +78,7 @@ class _DailyPageState extends State<DailyPage> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("⏰  "),
+                            Text("⏰ "),
                             Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +103,7 @@ class _DailyPageState extends State<DailyPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text("⏰  "),
+                            Text("⏰ "),
                             Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

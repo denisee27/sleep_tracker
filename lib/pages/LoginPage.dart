@@ -126,6 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           decoration: InputDecoration(
                             labelText: 'Email',
+                            border: InputBorder.none,
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide: BorderSide(
@@ -162,6 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                             },
                             obscureText: !_isPasswordVisible,
                             decoration: InputDecoration(
+                                border: InputBorder.none,
                                 labelText: 'Password',
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),

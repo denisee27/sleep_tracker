@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sleeptracker_app/pages/jurnaltidur/JurnalPage.dart';
-import 'package:sleeptracker_app/pages/profile/ProdilePage.dart';
+import 'package:sleeptracker_app/pages/profile/ProfilePage.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeName.dart';
 
 class HomePage extends StatefulWidget {

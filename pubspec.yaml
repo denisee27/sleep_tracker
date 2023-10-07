@@ -37,6 +37,7 @@ dependencies:
   rflutter_alert: ^2.0.7
   intl: ^0.18.1
   numberpicker: ^2.1.2
+  syncfusion_flutter_charts: ^23.1.39
 
 dev_dependencies:
   flutter_test:
