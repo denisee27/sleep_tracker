@@ -13,3 +13,10 @@ class BangunTidur {
   final double y;
   final Color color;
 }
+
+class DurasiTidur {
+  DurasiTidur(this.x, this.y, this.color);
+  final DateTime x;
+  final double y;
+  final Color color;
+}

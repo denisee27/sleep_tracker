@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sleeptracker_app/models/SleepHistory.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -10,10 +11,10 @@ class WeekPage extends StatefulWidget {
 }
 
 class _WeekPageState extends State<WeekPage> {
-  TooltipBehavior? _tooltipMulaiTidur;
-  TooltipBehavior? _tooltipBangunTidur;
-  late TrackballBehavior _trackballBehavior;
-  late CrosshairBehavior _crosshairBehavior;
+  late TooltipBehavior _tooltipMulaiTidur;
+  late TooltipBehavior _tooltipBangunTidur;
+  late TooltipBehavior _tooltipDurasiTidur;
+  late SelectionBehavior _selectionBehaviorDuratiTidur;
 
   final List<MulaiTidur> dataMulaiTidur = <MulaiTidur>[
     MulaiTidur(2010, 10.53, Color.fromRGBO(255, 89, 153, 1)),
@@ -39,6 +40,14 @@ class _WeekPageState extends State<WeekPage> {
     BangunTidur(2018, 3.43, Color.fromRGBO(255, 199, 84, 1)),
   ];
 
+  final List<DurasiTidur> dataDurasiTidur = <DurasiTidur>[
+    DurasiTidur(DateTime(2015, 2, 1), 30, Color.fromRGBO(227, 81, 89, 1)),
+    DurasiTidur(DateTime(2015, 2, 2), 34, Color.fromRGBO(227, 81, 89, 1)),
+    DurasiTidur(DateTime(2015, 2, 3), 30, Color.fromRGBO(227, 81, 89, 1)),
+    DurasiTidur(DateTime(2015, 2, 4), 30, Color.fromRGBO(227, 81, 89, 1)),
+    DurasiTidur(DateTime(2015, 2, 5), 35, Color.fromRGBO(227, 81, 89, 1)),
+  ];
+
   @override
   void initState() {
     _tooltipMulaiTidur = TooltipBehavior(
@@ -51,7 +60,17 @@ class _WeekPageState extends State<WeekPage> {
       header: 'Bangun Tidur',
       // format: 'point.y',
     );
-    _trackballBehavior = TrackballBehavior(enable: true);
+
+    _selectionBehaviorDuratiTidur = SelectionBehavior(
+        enable: true,
+        selectedColor: Color.fromRGBO(227, 81, 89, 1),
+        unselectedColor: Color.fromRGBO(96, 53, 74, 1));
+    _tooltipDurasiTidur = TooltipBehavior(
+      enable: true,
+      tooltipPosition: TooltipPosition.pointer,
+      format: 'point.y',
+      header: 'Durasi Tidur',
+    );
 
     super.initState();
   }
@@ -198,13 +217,13 @@ class _WeekPageState extends State<WeekPage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("⏰  "),
+                            Text("🌟  "),
                             Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Average",
+                                    "Total",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         color: Colors.white),
@@ -247,7 +266,7 @@ class _WeekPageState extends State<WeekPage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("⏰  "),
+                            Text("🛌  "),
                             Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -259,7 +278,7 @@ class _WeekPageState extends State<WeekPage> {
                                         color: Colors.white),
                                   ),
                                   Text(
-                                    "Durasi Tidur",
+                                    "Mulai Tidur",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         color: Colors.white),
@@ -290,7 +309,7 @@ class _WeekPageState extends State<WeekPage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("⏰  "),
+                            Text("🌞  "),
                             Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,7 +321,7 @@ class _WeekPageState extends State<WeekPage> {
                                         color: Colors.white),
                                   ),
                                   Text(
-                                    "Durasi Tidur",
+                                    "Bangun Tidur",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w300,
                                         color: Colors.white),
@@ -324,8 +343,47 @@ class _WeekPageState extends State<WeekPage> {
                 )
               ],
             ),
+            _spaceV(),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15),
+              child: SfCartesianChart(
+                  tooltipBehavior: _tooltipDurasiTidur,
+                  primaryXAxis: DateTimeAxis(
+                      axisLabelFormatter: (axisLabelRenderArgs) {
+                        final String text = DateFormat('EEEE').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                axisLabelRenderArgs.value.toInt()));
+                        const TextStyle style = TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w400);
+                        return ChartAxisLabel(text, style);
+                      },
+                      majorGridLines: MajorGridLines(width: 0),
+                      minorTicksPerInterval: 0),
+                  primaryYAxis: NumericAxis(
+                      axisLine: AxisLine(width: 0),
+                      decimalPlaces: 0,
+                      interval: 2),
+                  title: ChartTitle(
+                      alignment: ChartAlignment.near,
+                      text: 'Durasi Tidur',
+                      textStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500)),
+                  series: <ChartSeries>[
+                    ColumnSeries<DurasiTidur, DateTime>(
+                        dataSource: dataDurasiTidur,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5),
+                        ),
+                        selectionBehavior: _selectionBehaviorDuratiTidur,
+                        pointColorMapper: (DurasiTidur data, _) => data.color,
+                        xValueMapper: (DurasiTidur data, _) => data.x,
+                        yValueMapper: (DurasiTidur data, _) => data.y)
+                  ]),
+            ),
+            _spaceV(),
+            Container(
               child: SfCartesianChart(
                 primaryXAxis:
                     NumericAxis(labelStyle: TextStyle(color: Colors.white)),
@@ -337,7 +395,9 @@ class _WeekPageState extends State<WeekPage> {
                     alignment: ChartAlignment.near,
                     text: 'Mulai Tidur',
                     textStyle: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w500)),
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500)),
                 // primaryXAxis: NumericAxis(isInversed: true),
                 // primaryYAxis: NumericAxis(isInversed: true),
                 series: <ChartSeries>[
@@ -354,8 +414,8 @@ class _WeekPageState extends State<WeekPage> {
                 ],
               ),
             ),
+            _spaceV(),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
               child: SfCartesianChart(
                 primaryXAxis:
                     NumericAxis(labelStyle: TextStyle(color: Colors.white)),
@@ -367,7 +427,9 @@ class _WeekPageState extends State<WeekPage> {
                     alignment: ChartAlignment.near,
                     text: 'Bangun Tidur',
                     textStyle: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w500)),
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500)),
                 // primaryXAxis: NumericAxis(isInversed: true),
                 // primaryYAxis: NumericAxis(isInversed: true),
                 series: <ChartSeries>[
@@ -383,7 +445,7 @@ class _WeekPageState extends State<WeekPage> {
                       yValueMapper: (BangunTidur data, _) => data.y),
                 ],
               ),
-            )
+            ),
 
             // SfCartesianChart(
             //     primaryXAxis: CategoryAxis(),

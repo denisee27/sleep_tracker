@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sleeptracker_app/pages/jurnaltidur/JurnalPage.dart';
 import 'package:sleeptracker_app/pages/profile/ProfilePage.dart';
+import 'package:sleeptracker_app/pages/settidur/SetupTidur.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeName.dart';
 
 class HomePage extends StatefulWidget {
@@ -110,10 +111,41 @@ class _HomePageState extends State<HomePage> {
                         ],
                       )),
                   onTap: () => {
-                    setState(() {
-                      searchBox != false ? searchBox = false : false;
-                    }),
-                    changeActivePage(3)
+                    showModalBottomSheet<void>(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(25.0),
+                        ),
+                      ),
+                      backgroundColor:
+                          Color.fromRGBO(39, 46, 73, 1), // <-- SEE HERE
+                      builder: (BuildContext context) {
+                        return SizedBox(
+                          height: 200,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                ElevatedButton(
+                                  child: const Text('Setup Tidur'),
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SetupTidurPage())),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                    // setState(() {
+                    //   searchBox != false ? searchBox = false : false;
+                    // }),
+                    // changeActivePage(3)
                   },
                 ),
               ),
