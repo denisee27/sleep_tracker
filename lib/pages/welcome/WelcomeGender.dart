@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeBorn.dart';
+import 'package:sleeptracker_app/pages/welcome/WelcomeJob.dart';
 
 class WelcomeGender extends StatefulWidget {
-  const WelcomeGender({super.key});
+  final String? name;
+  WelcomeGender({Key? key, @required this.name}) : super(key: key);
 
   @override
   State<WelcomeGender> createState() => _WelcomeGenderState();
@@ -10,6 +12,9 @@ class WelcomeGender extends StatefulWidget {
 
 class _WelcomeGenderState extends State<WelcomeGender> {
   int? gender = 0;
+  String capitalize(String s) {
+    return s[0].toUpperCase() + s.substring(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Welcome To Sleepify",
+                        "Hi ${capitalize(widget.name!)}!",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -38,7 +43,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Choose Gender",
+                        "Pilih gender kamu, agar kami bisa mengenal kamu lebih baik",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
@@ -74,7 +79,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                '🙋‍♀️ Female',
+                                '🙋‍♀️ Wanita',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
@@ -115,7 +120,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                '🙋‍♂️ Male',
+                                '🙋‍♂️ Pria',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
@@ -136,36 +141,34 @@ class _WelcomeGenderState extends State<WelcomeGender> {
             // Spacer(),
             Container(
               child: Align(
-                alignment: Alignment.bottomCenter,
+                alignment: Alignment.bottomRight,
                 child: SizedBox(
-                  width: 400,
+                  width: 120,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(0, 144, 144, 1),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7)),
+                          borderRadius: BorderRadius.circular(50)),
                     ),
                     child: const Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.symmetric(vertical: 13),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Next',
+                              'Lanjut',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(Icons.arrow_forward)
                           ],
                         )),
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WelcomeBorn()));
+                              builder: (context) => WelcomeJob(
+                                    name: widget.name,
+                                  )));
                       // handleLogin();
                     },
                   ),

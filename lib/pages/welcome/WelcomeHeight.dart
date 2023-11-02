@@ -29,7 +29,7 @@ class _WelcomeHeightState extends State<WelcomeHeight> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Welcome To Sleepify",
+                        "Selanjutnya,",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -41,7 +41,7 @@ class _WelcomeHeightState extends State<WelcomeHeight> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Choose Height",
+                        "Berapa tinggi badanmu?",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
@@ -97,29 +97,25 @@ class _WelcomeHeightState extends State<WelcomeHeight> {
             ),
             Container(
               child: Align(
-                alignment: Alignment.bottomCenter,
+                alignment: Alignment.bottomRight,
                 child: SizedBox(
-                  width: 400,
+                  width: 120,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(0, 144, 144, 1),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7)),
+                          borderRadius: BorderRadius.circular(50)),
                     ),
                     child: const Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.symmetric(vertical: 13),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Next',
+                              'Lanjut',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(Icons.arrow_forward)
                           ],
                         )),
                     onPressed: () {

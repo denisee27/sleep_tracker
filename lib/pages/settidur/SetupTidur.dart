@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:progressive_time_picker/progressive_time_picker.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
+import 'package:sleeptracker_app/pages/settidur/SleepTime.dart';
 
 class SetupTidurPage extends StatefulWidget {
   const SetupTidurPage({super.key});
@@ -137,10 +138,10 @@ class _SetupTidurPageState extends State<SetupTidurPage> {
                         ),
                       ),
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => WelcomeName()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SleepTimePage()));
                       },
                     ),
                   ),

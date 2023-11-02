@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
 
@@ -29,7 +28,7 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Welcome To Sleepify",
+                        "Terakhir,",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -41,7 +40,7 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Choose Weight",
+                        "Berapa berat badanmu?",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
@@ -97,9 +96,9 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
             ),
             Container(
               child: Align(
-                alignment: Alignment.bottomCenter,
+                alignment: Alignment.bottomRight,
                 child: SizedBox(
-                  width: 400,
+                  width: 120,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(0, 144, 144, 1),
@@ -107,19 +106,15 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                           borderRadius: BorderRadius.circular(7)),
                     ),
                     child: const Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.symmetric(vertical: 13),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Save',
+                              'Lanjut',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(Icons.save)
                           ],
                         )),
                     onPressed: () {

@@ -30,7 +30,7 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Welcome To Sleepify",
+                        "Terima Kasih!",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -42,7 +42,7 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Choose Born Of Date",
+                        "Sekarang kapan tanggal lahirmu?",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
@@ -59,11 +59,15 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: TextFormField(
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
                       controller: creationDateC,
+                      textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        labelText: 'Choose Date',
-                        labelStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.white),
+                        hintText: 'Pilih Tanggal',
                         focusColor: Colors.white,
                         floatingLabelStyle: TextStyle(color: Colors.white),
                         filled: true,
@@ -94,29 +98,25 @@ class _WelcomeBornState extends State<WelcomeBorn> {
             ),
             Container(
               child: Align(
-                alignment: Alignment.bottomCenter,
+                alignment: Alignment.bottomRight,
                 child: SizedBox(
-                  width: 400,
+                  width: 120,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(0, 144, 144, 1),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7)),
+                          borderRadius: BorderRadius.circular(50)),
                     ),
                     child: const Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.symmetric(vertical: 13),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Next',
+                              'Lanjut',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Icon(Icons.arrow_forward)
                           ],
                         )),
                     onPressed: () {

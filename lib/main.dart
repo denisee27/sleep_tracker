@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:sleeptracker_app/pages/FirstPage.dart';
-import 'package:sleeptracker_app/pages/LoginPage.dart';
 import 'package:sleeptracker_app/pages/SplashPage.dart';
 // import 'package:ims_mobile/http.dart';
 
