@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sleeptracker_app/pages/result/intro.dart';
 
 class DailyPage extends StatefulWidget {
   const DailyPage({super.key});
@@ -45,7 +46,12 @@ class _DailyPageState extends State<DailyPage> {
                               color: Colors.white, fontWeight: FontWeight.w300),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IntroProfilePage()));
+                      },
                     ),
                   )
                 ],

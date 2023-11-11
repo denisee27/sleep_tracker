@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
+import 'package:sleeptracker_app/pages/settidur/SleepResult.dart';
 
 class SleepTimePage extends StatefulWidget {
   const SleepTimePage({super.key});
@@ -125,8 +126,10 @@ class _SleepTimePageState extends State<SleepTimePage> {
                           ],
                         )),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SleepResultPage()));
                       // handleLogin();
                     },
                   ),

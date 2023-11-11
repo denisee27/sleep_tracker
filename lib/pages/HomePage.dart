@@ -3,10 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sleeptracker_app/pages/jurnaltidur/JurnalPage.dart';
 import 'package:sleeptracker_app/pages/profile/ProfilePage.dart';
-import 'package:sleeptracker_app/pages/settidur/SetupTidur.dart';
+import 'package:sleeptracker_app/pages/settidur/SleepTime.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeName.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +20,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int activeIndex = 0;
+  int hour = 0;
+  int minute = 0;
+  int _currentValue = 3;
+
   String? nameUser;
   String? initialsUser;
   String? roleUser;
@@ -113,6 +118,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () => {
                     showModalBottomSheet<void>(
                       context: context,
+                      isScrollControlled: true,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(25.0),
@@ -121,22 +127,181 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor:
                           Color.fromRGBO(39, 46, 73, 1), // <-- SEE HERE
                       builder: (BuildContext context) {
-                        return SizedBox(
-                          height: 200,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                ElevatedButton(
-                                  child: const Text('Setup Tidur'),
-                                  onPressed: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SetupTidurPage())),
-                                ),
-                              ],
+                        return FractionallySizedBox(
+                          heightFactor: 0.8,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 50),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Container(
+                                    child: Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Text(
+                                            "Pilih Waktu Bangun Tidurmu",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 21),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            StatefulBuilder(
+                                                builder: (context4, setState2) {
+                                              return NumberPicker(
+                                                itemHeight: 90,
+                                                itemWidth: 120,
+                                                value: hour,
+                                                minValue: 0,
+                                                maxValue: 23,
+                                                onChanged: (value) => setState2(
+                                                    () => hour = value),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                      color: Color.fromRGBO(
+                                                          0, 144, 144, 1)),
+                                                ),
+                                                selectedTextStyle: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 50,
+                                                  color: Colors
+                                                      .white, // Ubah warna teks (value) menjadi putih
+                                                ),
+                                                textStyle: TextStyle(
+                                                  fontSize: 30,
+                                                  color: Colors
+                                                      .grey, // Ubah warna teks (value) menjadi putih
+                                                ),
+                                              );
+                                            }),
+                                            Text(
+                                              " : ",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 50),
+                                            ),
+                                            StatefulBuilder(
+                                                builder: (context4, setState2) {
+                                              return NumberPicker(
+                                                itemHeight: 90,
+                                                itemWidth: 120,
+                                                value: minute,
+                                                minValue: 00,
+                                                maxValue: 59,
+                                                onChanged: (value) => setState2(
+                                                    () => minute = value),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                      color: Color.fromRGBO(
+                                                          0, 144, 144, 1)),
+                                                ),
+                                                selectedTextStyle: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 50,
+                                                  color: Colors
+                                                      .white, // Ubah warna teks (value) menjadi putih
+                                                ),
+                                                textStyle: TextStyle(
+                                                  fontSize: 30,
+                                                  color: Colors
+                                                      .grey, // Ubah warna teks (value) menjadi putih
+                                                ),
+                                              );
+                                            }),
+                                          ],
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text:
+                                                    "Waktu tidur ideal yang cukup adalah selama ",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              TextSpan(
+                                                text: "8 jam",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 10),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 400,
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Color.fromRGBO(
+                                                  0, 144, 144, 1),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50)),
+                                            ),
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Text(
+                                                'Tidur Sekarang',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SleepTimePage()));
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        InkWell(
+                                          child: Text(
+                                            "Nanti Saja",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sleeptracker_app/models/SleepHistory.dart';
+import 'package:sleeptracker_app/pages/result/intro.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class WeekPage extends StatefulWidget {
@@ -118,7 +119,12 @@ class _WeekPageState extends State<WeekPage> {
                               color: Colors.white, fontWeight: FontWeight.w300),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IntroProfilePage()));
+                      },
                     ),
                   )
                 ],
