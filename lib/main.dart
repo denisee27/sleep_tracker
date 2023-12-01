@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sleeptracker_app/http.dart';
 import 'package:sleeptracker_app/pages/FirstPage.dart';
+import 'package:sleeptracker_app/pages/LoginPage.dart';
 import 'package:sleeptracker_app/pages/SplashPage.dart';
+import 'package:sleeptracker_app/pages/welcome/WelcomeName.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
@@ -18,8 +20,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (BuildContext context) => SplashPage(),
-        '/login': (BuildContext context) => FirstPage(),
-        // '/home': (BuildContext context) => HomePage(),
+        '/first': (BuildContext context) => FirstPage(),
+        '/welcome': (BuildContext context) => WelcomeName(),
       },
     );
   }

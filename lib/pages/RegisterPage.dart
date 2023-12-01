@@ -18,18 +18,40 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
   bool _isPasswordVisible = false;
+  bool loading = false;
 
   handleRegister() async {
-    bool response = await ApiServices().loginUser(emailC.text, passwordC.text);
+    bool response =
+        await ApiServices().registerUser(emailC.text, passwordC.text);
     if (response == true) {
-      Navigator.of(context).pushNamed('/home');
+      setState(() {
+        loading = false;
+        Alert(
+          context: context,
+          type: AlertType.success,
+          title: "Register Success",
+          desc: "Please login with your new account",
+          buttons: [
+            DialogButton(
+                child: Text(
+                  "Login",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                })
+          ],
+        ).show();
+        return;
+      });
     } else {
       setState(() {
         Alert(
           context: context,
           type: AlertType.error,
-          title: "Login Filed",
-          desc: "Make sure your account is registered and correct",
+          title: "Register Failed",
+          desc: "The email has already been taken",
           buttons: [
             DialogButton(
               child: Text(
@@ -386,17 +408,28 @@ class _RegisterPageState extends State<RegisterPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7)),
                         ),
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Daftar',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
+                          child: !loading
+                              ? Text(
+                                  'Daftar',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )),
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            handleRegister();
+                            setState(() {
+                              loading = false;
+                              handleRegister();
+                            });
                           }
                         },
                       ),

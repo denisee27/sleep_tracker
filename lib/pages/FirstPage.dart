@@ -13,59 +13,6 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  TextEditingController emailC = TextEditingController();
-  TextEditingController passwordC = TextEditingController();
-  bool _isPasswordVisible = false;
-
-  handleLogin() async {
-    if (emailC.text == '' || passwordC.text == '') {
-      setState(() {
-        Alert(
-          context: context,
-          type: AlertType.warning,
-          title: "Email/NIP dan password tidak boleh kosong!",
-          buttons: [
-            DialogButton(
-              child: Text(
-                "Cancel",
-                style: TextStyle(color: Colors.white, fontSize: 14),
-              ),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-        ).show();
-        return;
-      });
-    } else {
-      bool response = false;
-
-      // bool response =
-      //     await ApiServices().loginUser(emailC.text, passwordC.text);
-      if (response == true) {
-        Navigator.of(context).pushNamed('/home');
-      } else {
-        setState(() {
-          Alert(
-            context: context,
-            type: AlertType.error,
-            title: "Login Filed",
-            desc: "Make sure your account is registered and correct",
-            buttons: [
-              DialogButton(
-                child: Text(
-                  "Oke",
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                ),
-                onPressed: () => Navigator.pop(context),
-              )
-            ],
-          ).show();
-          return;
-        });
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

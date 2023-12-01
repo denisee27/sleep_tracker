@@ -1,25 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:sleeptracker_app/api/Token.dart';
 
-loadPref(name, initials, role, job_position, email, Warehouse) async {
+loadPref(name, initials, email) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString("name", name);
   prefs.setString("initials", initials);
-  prefs.setString("role", role);
-  prefs.setString("job_position", job_position);
   prefs.setString("email", email);
-  prefs.setStringList("responsible_warehouse", Warehouse);
 }
 
 class ApiServices {
-  // final baseurl = 'https://api-ims.karyaoptima.com/mobile';
-  final baseurl = 'https://ims.triasmitra.com/api/mobile';
+  final baseurl = 'http://192.168.18.197/sleeptracker';
 
   //Login User
   Future loginUser(String email, String password) async {
@@ -33,15 +28,24 @@ class ApiServices {
       var name = json.decode(response.body)['result']['user']['name'];
       var email = json.decode(response.body)['result']['user']['email'];
       var initials = json.decode(response.body)['result']['user']['initials'];
-      var role = json.decode(response.body)['result']['user']['role'];
-      var job_position =
-          json.decode(response.body)['result']['user']['job_position'];
-      var warehouse =
-          json.decode(response.body)['result']['user']['responsible_warehouse'];
-      List<String> responsibleWarehouse = List<String>.from(warehouse);
-
-      loadPref(name, initials, role, job_position, email, responsibleWarehouse);
+      loadPref(name, initials, email);
       await TokenAccess.storeToken(token);
+      return true;
+    } else if (response.statusCode != 200) {
+      return false;
+    } else {
+      throw Exception('Failed to login');
+    }
+  }
+
+  //Register User
+  Future registerUser(String email, String password) async {
+    var url = '$baseurl/auth/register';
+    final response = await http.post(Uri.parse(url), body: {
+      "email": email,
+      "password": password,
+    });
+    if (response.statusCode == 200) {
       return true;
     } else if (response.statusCode != 200) {
       return false;

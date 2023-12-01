@@ -20,13 +20,16 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
   bool _isPasswordVisible = false;
+  bool loading = false;
 
   handleLogin() async {
     bool response = await ApiServices().loginUser(emailC.text, passwordC.text);
     if (response == true) {
-      Navigator.of(context).pushNamed('/home');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WelcomeName()));
     } else {
       setState(() {
+        loading = false;
         Alert(
           context: context,
           type: AlertType.error,
@@ -388,17 +391,29 @@ class _LoginPageState extends State<LoginPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7)),
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            'Masuk',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                        child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: !loading
+                                ? Text(
+                                    'Masuk',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                : SizedBox(
+                                    width: 25,
+                                    height: 25,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ))),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            handleLogin();
+                            if (!loading) {
+                              setState(() {
+                                loading = true;
+                                handleLogin();
+                              });
+                            }
                           }
                         },
                       ),

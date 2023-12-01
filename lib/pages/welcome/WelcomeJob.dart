@@ -4,7 +4,9 @@ import 'package:sleeptracker_app/pages/welcome/WelcomeBorn.dart';
 
 class WelcomeJob extends StatefulWidget {
   final String? name;
-  WelcomeJob({Key? key, @required this.name}) : super(key: key);
+  final int? gender;
+  WelcomeJob({Key? key, @required this.name, @required this.gender})
+      : super(key: key);
 
   @override
   State<WelcomeJob> createState() => _WelcomeJobState();
@@ -98,7 +100,7 @@ class _WelcomeJobState extends State<WelcomeJob> {
                   value: modus,
                   items: jobList.map((data) {
                     return DropdownMenuItem<String>(
-                      value: data['id'], // Menggunakan 'id' sebagai value
+                      value: data['id'],
                       child: Text(
                         data['name'],
                         style: TextStyle(color: Colors.white),
@@ -140,7 +142,11 @@ class _WelcomeJobState extends State<WelcomeJob> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WelcomeBorn()));
+                              builder: (context) => WelcomeBorn(
+                                    name: widget.name,
+                                    gender: widget.gender,
+                                    job: jobId.text,
+                                  )));
                       // handleLogin();
                     },
                   ),

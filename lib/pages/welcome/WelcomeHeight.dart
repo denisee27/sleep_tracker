@@ -5,14 +5,23 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeWeight.dart';
 
 class WelcomeHeight extends StatefulWidget {
-  const WelcomeHeight({super.key});
-
+  final String? name;
+  final int? gender;
+  final String? job;
+  final String? born;
+  WelcomeHeight(
+      {Key? key,
+      @required this.name,
+      @required this.gender,
+      @required this.job,
+      @required this.born})
+      : super(key: key);
   @override
   State<WelcomeHeight> createState() => _WelcomeHeightState();
 }
 
 class _WelcomeHeightState extends State<WelcomeHeight> {
-  int _currentValue = 100;
+  int height = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +67,10 @@ class _WelcomeHeightState extends State<WelcomeHeight> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       NumberPicker(
-                        value: _currentValue,
+                        value: height,
                         minValue: 0,
                         maxValue: 500,
-                        onChanged: (value) =>
-                            setState(() => _currentValue = value),
+                        onChanged: (value) => setState(() => height = value),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border:
@@ -122,7 +130,13 @@ class _WelcomeHeightState extends State<WelcomeHeight> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WelcomeWeight()));
+                              builder: (context) => WelcomeWeight(
+                                    name: widget.name,
+                                    gender: widget.gender,
+                                    job: widget.job,
+                                    born: widget.born,
+                                    height: height,
+                                  )));
                       // handleLogin();
                     },
                   ),

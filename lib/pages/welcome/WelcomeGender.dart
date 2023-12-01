@@ -167,8 +167,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => WelcomeJob(
-                                    name: widget.name,
-                                  )));
+                                  name: widget.name, gender: gender)));
                       // handleLogin();
                     },
                   ),

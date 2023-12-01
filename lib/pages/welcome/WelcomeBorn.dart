@@ -6,14 +6,21 @@ import 'package:intl/intl.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeHeight.dart';
 
 class WelcomeBorn extends StatefulWidget {
-  const WelcomeBorn({super.key});
-
+  final String? name;
+  final int? gender;
+  final String? job;
+  WelcomeBorn(
+      {Key? key,
+      @required this.name,
+      @required this.gender,
+      @required this.job})
+      : super(key: key);
   @override
   State<WelcomeBorn> createState() => _WelcomeBornState();
 }
 
 class _WelcomeBornState extends State<WelcomeBorn> {
-  TextEditingController creationDateC = TextEditingController();
+  TextEditingController bornC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +70,7 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.w500),
-                      controller: creationDateC,
+                      controller: bornC,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintStyle: TextStyle(color: Colors.white),
@@ -89,7 +96,7 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                           lastDate: DateTime.now(),
                         );
                         final dateFormat = DateFormat('dd/MM/yyyy');
-                        creationDateC.text = dateFormat.format(picked!);
+                        bornC.text = dateFormat.format(picked!);
                       },
                     ),
                   ),
@@ -123,7 +130,12 @@ class _WelcomeBornState extends State<WelcomeBorn> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WelcomeHeight()));
+                              builder: (context) => WelcomeHeight(
+                                    name: widget.name,
+                                    gender: widget.gender,
+                                    job: widget.job,
+                                    born: bornC.text,
+                                  )));
                       // handleLogin();
                     },
                   ),

@@ -4,14 +4,38 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
 
 class WelcomeWeight extends StatefulWidget {
-  const WelcomeWeight({super.key});
+  final String? name;
+  final int? gender;
+  final String? job;
+  final String? born;
+  final int? height;
+  WelcomeWeight(
+      {Key? key,
+      @required this.name,
+      @required this.gender,
+      @required this.job,
+      @required this.born,
+      @required this.height})
+      : super(key: key);
 
   @override
   State<WelcomeWeight> createState() => _WelcomeWeightState();
 }
 
 class _WelcomeWeightState extends State<WelcomeWeight> {
-  int _currentValue = 50;
+  int weight = 50;
+  handleSubmit() {
+    print(widget.name);
+    print(widget.gender);
+    print(widget.job);
+    print(widget.height);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(
+                  index: 0,
+                )));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +81,10 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       NumberPicker(
-                        value: _currentValue,
+                        value: weight,
                         minValue: 0,
                         maxValue: 500,
-                        onChanged: (value) =>
-                            setState(() => _currentValue = value),
+                        onChanged: (value) => setState(() => weight = value),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border:
@@ -118,9 +141,9 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                           ],
                         )),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                      // handleLogin();
+                      setState(() {
+                        handleSubmit();
+                      });
                     },
                   ),
                 ),

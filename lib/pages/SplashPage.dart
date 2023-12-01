@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
           () => Navigator.pushReplacementNamed(context, '/home'));
     } else {
       Timer(const Duration(seconds: 4),
-          () => Navigator.pushReplacementNamed(context, '/login'));
+          () => Navigator.pushReplacementNamed(context, '/first'));
     }
   }
 
