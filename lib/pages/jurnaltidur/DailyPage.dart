@@ -16,50 +16,50 @@ class _DailyPageState extends State<DailyPage> {
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: const Color.fromRGBO(39, 46, 73, 1)),
-              child: Column(
-                children: [
-                  Text(
-                    "Untuk hasil analisa yang lebih baik, akurat, dan bermanfaat. Profil tidur hanya bisa diakses setelah kamu melakukan pelacakan tidur paling tidak 30 hari. ",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w300),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: InkWell(
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color.fromRGBO(0, 144, 144, 1)),
-                        child: Text(
-                          "Lihat Profile Tidur",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => IntroProfilePage()));
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+            // Container(
+            //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            //   decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(10),
+            //       color: const Color.fromRGBO(39, 46, 73, 1)),
+            //   child: Column(
+            //     children: [
+            //       Text(
+            //         "Untuk hasil analisa yang lebih baik, akurat, dan bermanfaat. Profil tidur hanya bisa diakses setelah kamu melakukan pelacakan tidur paling tidak 30 hari. ",
+            //         style: TextStyle(
+            //             color: Colors.white, fontWeight: FontWeight.w300),
+            //       ),
+            //       SizedBox(
+            //         height: 15,
+            //       ),
+            //       Align(
+            //         alignment: Alignment.bottomRight,
+            //         child: InkWell(
+            //           child: Container(
+            //             padding:
+            //                 EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 color: Color.fromRGBO(0, 144, 144, 1)),
+            //             child: Text(
+            //               "Lihat Profile Tidur",
+            //               style: TextStyle(
+            //                   color: Colors.white, fontWeight: FontWeight.w300),
+            //             ),
+            //           ),
+            //           onTap: () {
+            //             Navigator.push(
+            //                 context,
+            //                 MaterialPageRoute(
+            //                     builder: (context) => IntroProfilePage()));
+            //           },
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
               decoration: BoxDecoration(

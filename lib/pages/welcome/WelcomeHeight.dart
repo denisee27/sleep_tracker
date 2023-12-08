@@ -6,7 +6,7 @@ import 'package:sleeptracker_app/pages/welcome/WelcomeWeight.dart';
 
 class WelcomeHeight extends StatefulWidget {
   final String? name;
-  final int? gender;
+  final String? gender;
   final String? job;
   final String? born;
   WelcomeHeight(

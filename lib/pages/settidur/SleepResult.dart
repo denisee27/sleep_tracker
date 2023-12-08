@@ -1,17 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
 import 'package:sleeptracker_app/pages/settidur/QualitySleep.dart';
 
 class SleepResultPage extends StatefulWidget {
-  const SleepResultPage({super.key});
+  final DateTime? sleepStart;
+  SleepResultPage({Key? key, @required this.sleepStart}) : super(key: key);
 
   @override
   State<SleepResultPage> createState() => _SleepResultPageState();
 }
 
 class _SleepResultPageState extends State<SleepResultPage> {
+  DateTime? sleepEnd;
+  Duration? sleepDuration;
+
+  @override
+  void initState() {
+    super.initState();
+    sleepEnd = DateTime.now();
+
+    calculateSleepDuration();
+  }
+
+  void calculateSleepDuration() {
+    setState(() {
+      sleepDuration = sleepEnd!.difference(widget.sleepStart!);
+    });
+  }
+
+  String _formatDateTime(DateTime dateTime) {
+    return DateFormat('HH:mm').format(dateTime);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +81,7 @@ class _SleepResultPageState extends State<SleepResultPage> {
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w200)),
-                            Text("7 Jam 2 Menit",
+                            Text("${formatDuration(sleepDuration!)}",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
@@ -82,7 +105,8 @@ class _SleepResultPageState extends State<SleepResultPage> {
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w200)),
-                            Text("21:30 - 06:10",
+                            Text(
+                                "${_formatDateTime(widget.sleepStart!)} - ${_formatDateTime(sleepEnd!)}",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
@@ -129,4 +153,11 @@ class _SleepResultPageState extends State<SleepResultPage> {
       ),
     );
   }
+}
+
+String formatDuration(Duration duration) {
+  // Mengonversi durasi ke dalam format jam:menit
+  int hours = duration.inHours;
+  int minutes = (duration.inMinutes - (hours * 60)) % 60;
+  return '$hours jam $minutes menit';
 }

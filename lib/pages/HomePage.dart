@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   int activeIndex = 0;
   int hour = 0;
   int minute = 0;
-  int _currentValue = 3;
 
   String? nameUser;
   String? initialsUser;
@@ -275,11 +274,19 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                             onPressed: () {
+                                              TimeOfDay selectedTime =
+                                                  TimeOfDay(
+                                                      hour: hour,
+                                                      minute: minute);
+                                              String formattedTime =
+                                                  selectedTime.format(context);
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          SleepTimePage()));
+                                                          SleepTimePage(
+                                                              time:
+                                                                  formattedTime)));
                                             },
                                           ),
                                         ),

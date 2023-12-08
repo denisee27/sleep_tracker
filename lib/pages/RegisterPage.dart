@@ -23,9 +23,9 @@ class _RegisterPageState extends State<RegisterPage> {
   handleRegister() async {
     bool response =
         await ApiServices().registerUser(emailC.text, passwordC.text);
-    if (response == true) {
-      setState(() {
-        loading = false;
+    setState(() {
+      loading = false;
+      if (response == true) {
         Alert(
           context: context,
           type: AlertType.success,
@@ -44,9 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ],
         ).show();
         return;
-      });
-    } else {
-      setState(() {
+      } else {
         Alert(
           context: context,
           type: AlertType.error,
@@ -63,8 +61,8 @@ class _RegisterPageState extends State<RegisterPage> {
           ],
         ).show();
         return;
-      });
-    }
+      }
+    });
   }
 
   @override
@@ -427,7 +425,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             setState(() {
-                              loading = false;
+                              loading = true;
                               handleRegister();
                             });
                           }

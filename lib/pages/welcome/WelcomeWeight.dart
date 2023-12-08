@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sleeptracker_app/api/ApiServices.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
 
 class WelcomeWeight extends StatefulWidget {
   final String? name;
-  final int? gender;
+  final String? gender;
   final String? job;
   final String? born;
   final int? height;
@@ -24,17 +27,48 @@ class WelcomeWeight extends StatefulWidget {
 
 class _WelcomeWeightState extends State<WelcomeWeight> {
   int weight = 50;
-  handleSubmit() {
-    print(widget.name);
-    print(widget.gender);
-    print(widget.job);
-    print(widget.height);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HomePage(
-                  index: 0,
-                )));
+  String? id;
+
+  handleSubmit() async {
+    bool response = await ApiServices().updateUser(widget.name!, widget.job!,
+        widget.born!, widget.gender!, weight, widget.height!);
+    if (response == true) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    index: 0,
+                  )));
+    } else {
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Gagal",
+        desc: "Pastikan data yang dimasukkan valid!",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Oke",
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+            onPressed: () => Navigator.pop(context),
+          )
+        ],
+      ).show();
+    }
+  }
+
+  getId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      id = prefs.getString("id") ?? "";
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getId();
   }
 
   @override
@@ -142,6 +176,7 @@ class _WelcomeWeightState extends State<WelcomeWeight> {
                         )),
                     onPressed: () {
                       setState(() {
+                        // print(widget.born!);
                         handleSubmit();
                       });
                     },

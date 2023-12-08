@@ -33,8 +33,8 @@ class _LoginPageState extends State<LoginPage> {
         Alert(
           context: context,
           type: AlertType.error,
-          title: "Login Filed",
-          desc: "Make sure your account is registered and correct",
+          title: "Login Gagal",
+          desc: "Pastikan akun kamu benar dan sudah terdaftar!",
           buttons: [
             DialogButton(
               child: Text(

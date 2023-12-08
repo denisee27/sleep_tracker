@@ -5,9 +5,11 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:sleeptracker_app/api/Token.dart';
+import 'package:sleeptracker_app/models/JobMaster.dart';
 
-loadPref(name, initials, email) async {
+loadPref(id, name, initials, email) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("id", id);
   prefs.setString("name", name);
   prefs.setString("initials", initials);
   prefs.setString("email", email);
@@ -15,6 +17,7 @@ loadPref(name, initials, email) async {
 
 class ApiServices {
   final baseurl = 'http://192.168.18.197/sleeptracker';
+  // final baseurl = 'http://10.220.1.72/sleeptracker';
 
   //Login User
   Future loginUser(String email, String password) async {
@@ -25,10 +28,11 @@ class ApiServices {
     });
     if (response.statusCode == 200) {
       var token = json.decode(response.body)['result']['access_token'];
+      var id = json.decode(response.body)['result']['user']['id'];
       var name = json.decode(response.body)['result']['user']['name'];
       var email = json.decode(response.body)['result']['user']['email'];
       var initials = json.decode(response.body)['result']['user']['initials'];
-      loadPref(name, initials, email);
+      loadPref(id, name, initials, email);
       await TokenAccess.storeToken(token);
       return true;
     } else if (response.statusCode != 200) {
@@ -45,6 +49,7 @@ class ApiServices {
       "email": email,
       "password": password,
     });
+    print(response.body);
     if (response.statusCode == 200) {
       return true;
     } else if (response.statusCode != 200) {
@@ -54,73 +59,23 @@ class ApiServices {
     }
   }
 
-//Update Material Tp
-  Future revisiMaterialToSite(
-      String id,
-      String fromType,
-      String fromWarehouse,
-      String projectId,
-      String requestDate,
-      String jointer,
-      String ticketNumber,
-      String segmentName,
-      String sectionName,
-      String notes,
-      List<Map<dynamic, dynamic>> materialList) async {
-    var urlPost = '$baseurl/material-to-site/update';
+//Update User Profile
+  Future updateUser(String name, String job, String bod, String gender,
+      int weight, int height) async {
+    var urlPost = '$baseurl/users/update';
     var token = await TokenAccess.getToken();
-    DateTime tanggalObj = DateFormat("dd/MM/yyyy").parse(requestDate);
-    var convertDate = DateFormat("yyyy-MM-dd").format(tanggalObj);
-
-    List<Map<String, dynamic>> payLoadDetailsList = [];
-    for (int i = 0; i < materialList.length; i++) {
-      List<Map<String, dynamic>> payloadStockList = [];
-      if (materialList[i]["oldData"] == true) {
-        for (int q = 0; q < materialList[i]["stocks"].length; q++) {
-          Map<String, dynamic> payloadStock = {
-            "material_stock_detail_id": materialList[i]["stocks"][q]
-                ["materialStockDetailId"],
-            "qty": materialList[i]["stocks"][q]["qty"] ?? 0,
-          };
-          payloadStockList.add(payloadStock);
-        }
-        Map<String, dynamic> payLoadDetails = {
-          "material_id": materialList[i]["material_id"] ?? '',
-          "qty": materialList[i]["qty"],
-          "stocks": payloadStockList
-        };
-        payLoadDetailsList.add(payLoadDetails);
-      } else {
-        for (int q = 0; q < materialList[i]["stocks"].length; q++) {
-          Map<String, dynamic> payloadStock = {
-            "material_stock_detail_id": materialList[i]["stocks"][q].id,
-            "qty": materialList[i]["stocks"][q].qty ?? 0,
-          };
-          payloadStockList.add(payloadStock);
-        }
-        Map<String, dynamic> payLoadDetails = {
-          "material_id": materialList[i]["material_id"] ?? '',
-          "qty": int.tryParse(materialList[i]["qty"] ?? '0') ?? 0,
-          "stocks": payloadStockList
-        };
-        payLoadDetailsList.add(payLoadDetails);
-      }
-    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    DateTime dateBod = DateFormat("dd/MM/yyyy").parse(bod);
+    var convertBod = DateFormat("yyyy-MM-dd").format(dateBod);
     Map<dynamic, dynamic> payload = {
       "data": {
-        "id": id,
-        "material_to_site": id,
-        "from_type": fromType,
-        "from_warehouse": fromWarehouse,
-        "project_id": projectId,
-        "request_date": convertDate,
-        "jointer": jointer,
-        "ticket_number": ticketNumber,
-        "segment_name": segmentName,
-        "customer_name": null,
-        "section_name": sectionName,
-        "notes": notes,
-        "details": payLoadDetailsList
+        "id": prefs.getString("id"),
+        "name": name,
+        "bod": convertBod,
+        "job": job,
+        "gender": gender,
+        "weight": weight,
+        "height": height,
       }
     };
     final response = await http.post(Uri.parse(urlPost),
@@ -130,6 +85,7 @@ class ApiServices {
           'Accept': "application/json"
         },
         body: jsonEncode(payload));
+    print(response.body);
     if (response.statusCode == 200) {
       return true;
     } else if (response.statusCode != 200) {
@@ -178,6 +134,25 @@ class ApiServices {
       return false;
     } else {
       throw Exception('Failed to post data');
+    }
+  }
+
+  //Get TT Number
+  Future<List<JobMaster>> getJobMaster() async {
+    var token = await TokenAccess.getToken();
+    var urlGet = '$baseurl/jobs';
+    final response = await http.get(
+      Uri.parse(urlGet),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
+    print(response);
+    if (response.statusCode == 200) {
+      final List jsonResponse = json.decode(response.body)['result']['data'];
+      return jsonResponse.map((data) => JobMaster.fromJson(data)).toList();
+    } else {
+      throw Exception('Failed to load data');
     }
   }
 }

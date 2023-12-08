@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeGender.dart';
 
 class WelcomeName extends StatefulWidget {
@@ -12,6 +13,7 @@ class WelcomeName extends StatefulWidget {
 class _WelcomeNameState extends State<WelcomeName> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameC = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -128,8 +130,6 @@ class _WelcomeNameState extends State<WelcomeName> {
                                           name: nameC.text,
                                         )));
                           }
-
-                          // handleLogin();
                         },
                       ),
                     ),

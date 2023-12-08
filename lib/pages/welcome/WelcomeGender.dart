@@ -11,7 +11,7 @@ class WelcomeGender extends StatefulWidget {
 }
 
 class _WelcomeGenderState extends State<WelcomeGender> {
-  int? gender = 0;
+  String? gender;
   String capitalize(String s) {
     return s[0].toUpperCase() + s.substring(1);
   }
@@ -65,7 +65,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                           style: ElevatedButton.styleFrom(
                             side: BorderSide(
                               width: 2.3,
-                              color: gender == 0
+                              color: gender == 'female'
                                   ? Color.fromRGBO(0, 144, 144, 1)
                                   : Color.fromRGBO(39, 46, 73, 1),
                             ),
@@ -87,7 +87,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                           ),
                           onPressed: () {
                             setState(() {
-                              gender = 0;
+                              gender = 'female';
                             });
                           },
                         ),
@@ -106,7 +106,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                           style: ElevatedButton.styleFrom(
                             side: BorderSide(
                               width: 2.3,
-                              color: gender == 1
+                              color: gender == 'male'
                                   ? Color.fromRGBO(0, 144, 144, 1)
                                   : Color.fromRGBO(39, 46, 73, 1),
                             ),
@@ -128,7 +128,7 @@ class _WelcomeGenderState extends State<WelcomeGender> {
                           ),
                           onPressed: () {
                             setState(() {
-                              gender = 1;
+                              gender = 'male';
                             });
                           },
                         ),

@@ -1,10 +1,12 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:sleeptracker_app/api/ApiServices.dart';
+import 'package:sleeptracker_app/models/JobMaster.dart';
 import 'package:sleeptracker_app/pages/welcome/WelcomeBorn.dart';
 
 class WelcomeJob extends StatefulWidget {
   final String? name;
-  final int? gender;
+  final String? gender;
   WelcomeJob({Key? key, @required this.name, @required this.gender})
       : super(key: key);
 
@@ -13,26 +15,21 @@ class WelcomeJob extends StatefulWidget {
 }
 
 class _WelcomeJobState extends State<WelcomeJob> {
-  String? jobName;
-  TextEditingController jobId = TextEditingController();
-  Map<String, String> selectModus = Map();
-  List<String> modes = [];
-  String? modus;
+  String? jobId;
+  List<JobMaster> jobMasterList = [];
+  ApiServices apiService = ApiServices();
+  getJobMaster() async {
+    List<JobMaster> response = await apiService.getJobMaster();
+    setState(() {
+      jobMasterList = response;
+    });
+  }
 
-  List jobList = [
-    {
-      'id': '1',
-      'name': 'Software Developer',
-    },
-    {
-      'id': '2',
-      'name': 'Admin',
-    },
-    {
-      'id': '3',
-      'name': 'Guru',
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    getJobMaster();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,21 +92,21 @@ class _WelcomeJobState extends State<WelcomeJob> {
                     Icons.keyboard_arrow_down_outlined,
                     color: Colors.white, // <-- SEE HERE
                   ),
-
                   isExpanded: true,
-                  value: modus,
-                  items: jobList.map((data) {
+                  value: jobId,
+                  items: jobMasterList.map((data) {
                     return DropdownMenuItem<String>(
-                      value: data['id'],
+                      value: data.id,
                       child: Text(
-                        data['name'],
+                        data.name!,
                         style: TextStyle(color: Colors.white),
                       ), // Menampilkan 'name' di dropdown
                     );
                   }).toList(),
                   onChanged: (value) {
+                    print(value);
                     setState(() {
-                      modus = value;
+                      jobId = value;
                     });
                   },
                 ),
@@ -145,9 +142,8 @@ class _WelcomeJobState extends State<WelcomeJob> {
                               builder: (context) => WelcomeBorn(
                                     name: widget.name,
                                     gender: widget.gender,
-                                    job: jobId.text,
+                                    job: jobId,
                                   )));
-                      // handleLogin();
                     },
                   ),
                 ),
