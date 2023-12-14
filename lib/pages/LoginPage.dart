@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sleeptracker_app/api/ApiServices.dart';
 import 'package:sleeptracker_app/pages/FirstPage.dart';
+import 'package:sleeptracker_app/pages/HomePage.dart';
 import 'package:sleeptracker_app/pages/LoginPage.dart';
 import 'package:sleeptracker_app/pages/LoginPage.dart';
 import 'package:sleeptracker_app/pages/RegisterPage.dart';
@@ -23,10 +24,19 @@ class _LoginPageState extends State<LoginPage> {
   bool loading = false;
 
   handleLogin() async {
-    bool response = await ApiServices().loginUser(emailC.text, passwordC.text);
-    if (response == true) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => WelcomeName()));
+    var response = await ApiServices().loginUser(emailC.text, passwordC.text);
+    setState(() {
+      loading = false;
+    });
+    print(response);
+    if (response['status'] == 200) {
+      if (response['result']['user']['name'] != null) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => HomePage(index: 0)));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => WelcomeName()));
+      }
     } else {
       setState(() {
         loading = false;

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
 import 'package:sleeptracker_app/pages/settidur/SleepResult.dart';
 
@@ -21,6 +22,7 @@ class SleepTimePage extends StatefulWidget {
 class _SleepTimePageState extends State<SleepTimePage> {
   @override
   String? _timeString;
+  String? nameUser;
   DateTime? sleepStart;
   late AnimationController _animationController;
 
@@ -28,8 +30,15 @@ class _SleepTimePageState extends State<SleepTimePage> {
     super.initState();
     _timeString = _formatDateTime(DateTime.now());
     sleepStart = DateTime.now();
-
+    getUser();
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+  }
+
+  getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      nameUser = prefs.getString("name") ?? "";
+    });
   }
 
   void _getTime() {
@@ -100,7 +109,7 @@ class _SleepTimePageState extends State<SleepTimePage> {
                     Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Selamat Tidur, Denis",
+                          "Selamat Tidur, ${nameUser}",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
@@ -135,7 +144,6 @@ class _SleepTimePageState extends State<SleepTimePage> {
                 child: Align(
                   alignment: Alignment.bottomRight,
                   child: SizedBox(
-                    width: 120,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(0, 144, 144, 1),
@@ -148,7 +156,7 @@ class _SleepTimePageState extends State<SleepTimePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Lanjut',
+                                'Wake Up',
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                               ),

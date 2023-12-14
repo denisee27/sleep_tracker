@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sleeptracker_app/api/Token.dart';
+import 'package:sleeptracker_app/pages/LoginPage.dart';
 import 'package:sleeptracker_app/pages/profile/DetailProfilePage.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -219,11 +223,46 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         )),
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => ()));
-                      // handleLogin();
+                      setState(() {
+                        Alert(
+                          context: context,
+                          type: AlertType.error,
+                          title: "Login Gagal",
+                          desc: "Pastikan akun kamu benar dan sudah terdaftar!",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "No",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            DialogButton(
+                              color: Colors.red,
+                              child: Text(
+                                "Yes",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                              onPressed: () async {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                await TokenAccess.deleteToken();
+                                await prefs.remove('id');
+                                await prefs.remove('name');
+                                await prefs.remove('initials');
+                                await prefs.remove('email');
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
+                              },
+                            )
+                          ],
+                        ).show();
+                        return;
+                      });
                     },
                   ),
                 ),

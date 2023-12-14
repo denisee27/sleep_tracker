@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
 import 'package:sleeptracker_app/pages/settidur/QualitySleep.dart';
 
@@ -16,13 +17,21 @@ class SleepResultPage extends StatefulWidget {
 class _SleepResultPageState extends State<SleepResultPage> {
   DateTime? sleepEnd;
   Duration? sleepDuration;
+  String? nameUser;
 
   @override
   void initState() {
     super.initState();
     sleepEnd = DateTime.now();
-
+    getUser();
     calculateSleepDuration();
+  }
+
+  getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      nameUser = prefs.getString("name") ?? "";
+    });
   }
 
   void calculateSleepDuration() {
@@ -50,7 +59,7 @@ class _SleepResultPageState extends State<SleepResultPage> {
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Selamat Pagi, Denis",
+                        "Selamat Pagi, ${nameUser}",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -142,7 +151,6 @@ class _SleepResultPageState extends State<SleepResultPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => QualitySleepPage()));
-                      // handleLogin();
                     },
                   ),
                 ),
@@ -156,7 +164,6 @@ class _SleepResultPageState extends State<SleepResultPage> {
 }
 
 String formatDuration(Duration duration) {
-  // Mengonversi durasi ke dalam format jam:menit
   int hours = duration.inHours;
   int minutes = (duration.inMinutes - (hours * 60)) % 60;
   return '$hours jam $minutes menit';

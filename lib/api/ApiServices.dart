@@ -16,8 +16,8 @@ loadPref(id, name, initials, email) async {
 }
 
 class ApiServices {
-  final baseurl = 'http://192.168.18.197/sleeptracker';
-  // final baseurl = 'http://10.220.1.72/sleeptracker';
+  // final baseurl = 'http://192.168.18.197/sleeptracker';
+  final baseurl = 'http://10.3.6.125/sleeptracker';
 
   //Login User
   Future loginUser(String email, String password) async {
@@ -34,7 +34,7 @@ class ApiServices {
       var initials = json.decode(response.body)['result']['user']['initials'];
       loadPref(id, name, initials, email);
       await TokenAccess.storeToken(token);
-      return true;
+      return json.decode(response.body);
     } else if (response.statusCode != 200) {
       return false;
     } else {
@@ -95,31 +95,21 @@ class ApiServices {
     }
   }
 
-//Create Use Material Return
-  Future createUseMaterialReturn(String materialToSiteId, String returnDate,
-      String notes, List<Map<dynamic, dynamic>> materialList) async {
-    var urlPost = '$baseurl/used-material-returns/create';
+  //Update User Profile
+  Future createSleep(String name, String job, String bod, String gender,
+      int weight, int height) async {
+    var urlPost = '$baseurl/sleep/create';
     var token = await TokenAccess.getToken();
-    DateTime tanggalObj = DateFormat("dd/MM/yyyy").parse(returnDate);
-    var convertDate = DateFormat("yyyy-MM-dd").format(tanggalObj);
-
-    List<Map<String, dynamic>> payLoadDetailsList = [];
-    for (int i = 0; i < materialList.length; i++) {
-      Map<String, dynamic> payLoadDetails = {
-        "material_id": materialList[i]["material_id"] ?? '',
-        "qty": int.tryParse(materialList[i]["qty"] ?? '0') ?? 0,
-      };
-      payLoadDetailsList.add(payLoadDetails);
-    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    DateTime dateBod = DateFormat("dd/MM/yyyy").parse(bod);
+    var convertBod = DateFormat("yyyy-MM-dd").format(dateBod);
     Map<dynamic, dynamic> payload = {
       "data": {
-        "material_to_site_id": materialToSiteId,
-        "return_date": convertDate,
-        "notes": notes,
-        "details": payLoadDetailsList
+        "sleep_start": name,
+        "sleep_end": convertBod,
+        "sleep_quality": job,
       }
     };
-
     final response = await http.post(Uri.parse(urlPost),
         headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -127,7 +117,7 @@ class ApiServices {
           'Accept': "application/json"
         },
         body: jsonEncode(payload));
-
+    print(response.body);
     if (response.statusCode == 200) {
       return true;
     } else if (response.statusCode != 200) {
