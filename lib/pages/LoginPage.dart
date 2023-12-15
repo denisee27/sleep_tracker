@@ -417,8 +417,8 @@ class _LoginPageState extends State<LoginPage> {
                                       color: Colors.white,
                                     ))),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            if (!loading) {
+                          if (!loading) {
+                            if (_formKey.currentState!.validate()) {
                               setState(() {
                                 loading = true;
                                 handleLogin();

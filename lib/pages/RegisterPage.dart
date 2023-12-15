@@ -48,8 +48,8 @@ class _RegisterPageState extends State<RegisterPage> {
         Alert(
           context: context,
           type: AlertType.error,
-          title: "Register Failed",
-          desc: "The email has already been taken",
+          title: "Daftar Akun Gagal",
+          desc: "Email sudah terdaftar",
           buttons: [
             DialogButton(
               child: Text(
@@ -423,11 +423,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   )),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              loading = true;
-                              handleRegister();
-                            });
+                          if (!loading) {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                loading = true;
+                                handleRegister();
+                              });
+                            }
                           }
                         },
                       ),

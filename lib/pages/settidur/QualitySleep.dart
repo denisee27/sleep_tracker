@@ -1,28 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sleeptracker_app/api/ApiServices.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
 import 'package:sleeptracker_app/pages/settidur/PhysicalActivity.dart';
 
 class QualitySleepPage extends StatefulWidget {
-  const QualitySleepPage({super.key});
+  final DateTime? sleep_start;
+  final DateTime? sleep_end;
+  QualitySleepPage(
+      {Key? key, @required this.sleep_start, @required this.sleep_end})
+      : super(key: key);
 
   @override
   State<QualitySleepPage> createState() => _QualitySleepPageState();
 }
 
 class _QualitySleepPageState extends State<QualitySleepPage> {
-  int? scala;
-
+  int? sleep_quality;
+  bool loading = false;
   handleSubmit() async {
-    // bool response = await ApiServices().updateUser(widget.name!, widget.job!,
-    //     widget.born!, widget.gender!, weight, widget.height!);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HomePage(
-                  index: 0,
-                )));
+    bool response = await ApiServices()
+        .createSleep(widget.sleep_start!, widget.sleep_end!, sleep_quality!);
+    setState(() {
+      loading = false;
+    });
+    if (response == true) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    index: 0,
+                  )));
+      return;
+    } else {
+      Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Submit Gagal",
+        desc: "Pastikan data yang di input sudah benar",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Oke",
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+            onPressed: () => Navigator.pop(context),
+          )
+        ],
+      ).show();
+      return;
+    }
   }
 
   @override
@@ -84,7 +112,7 @@ class _QualitySleepPageState extends State<QualitySleepPage> {
                             style: ElevatedButton.styleFrom(
                               side: BorderSide(
                                 width: 2.3,
-                                color: scala == i + 1
+                                color: sleep_quality == i + 1
                                     ? Color.fromRGBO(0, 144, 144, 1)
                                     : Color.fromRGBO(39, 46, 73, 1),
                               ),
@@ -108,7 +136,7 @@ class _QualitySleepPageState extends State<QualitySleepPage> {
                             ),
                             onPressed: () {
                               setState(() {
-                                scala = i + 1;
+                                sleep_quality = i + 1;
                               });
                             },
                           ),
@@ -129,19 +157,25 @@ class _QualitySleepPageState extends State<QualitySleepPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7)),
                       ),
-                      child: const Padding(
+                      child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 13),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Lanjut',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )),
+                          child: !loading
+                              ? Text(
+                                  'Submit',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ))),
                       onPressed: () {
+                        setState(() {
+                          loading = true;
+                        });
                         handleSubmit();
                       },
                     ),

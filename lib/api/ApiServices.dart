@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:sleeptracker_app/api/Token.dart';
+import 'package:sleeptracker_app/models/DailySleep.dart';
 import 'package:sleeptracker_app/models/JobMaster.dart';
 
 loadPref(id, name, initials, email) async {
@@ -17,7 +18,8 @@ loadPref(id, name, initials, email) async {
 
 class ApiServices {
   // final baseurl = 'http://192.168.18.197/sleeptracker';
-  final baseurl = 'http://10.3.6.125/sleeptracker';
+  final baseurl = 'http://192.168.39.243/sleeptracker';
+  // final baseurl = 'http://10.3.6.91/sleeptracker';
 
   //Login User
   Future loginUser(String email, String password) async {
@@ -95,19 +97,19 @@ class ApiServices {
     }
   }
 
-  //Update User Profile
-  Future createSleep(String name, String job, String bod, String gender,
-      int weight, int height) async {
+  //Create Sleep
+  Future createSleep(
+      DateTime sleep_start, DateTime sleep_end, int sleep_quality) async {
     var urlPost = '$baseurl/sleep/create';
     var token = await TokenAccess.getToken();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    DateTime dateBod = DateFormat("dd/MM/yyyy").parse(bod);
-    var convertBod = DateFormat("yyyy-MM-dd").format(dateBod);
+
+    var convertSleepStart = DateFormat("yyyy-MM-dd HH:mm").format(sleep_start);
+    var convertSleepEnd = DateFormat("yyyy-MM-dd HH:mm").format(sleep_end);
     Map<dynamic, dynamic> payload = {
       "data": {
-        "sleep_start": name,
-        "sleep_end": convertBod,
-        "sleep_quality": job,
+        "sleep_start": convertSleepStart,
+        "sleep_end": convertSleepEnd,
+        "sleep_quality": sleep_quality,
       }
     };
     final response = await http.post(Uri.parse(urlPost),
@@ -117,7 +119,6 @@ class ApiServices {
           'Accept': "application/json"
         },
         body: jsonEncode(payload));
-    print(response.body);
     if (response.statusCode == 200) {
       return true;
     } else if (response.statusCode != 200) {
@@ -127,7 +128,7 @@ class ApiServices {
     }
   }
 
-  //Get TT Number
+  //Get Job Master
   Future<List<JobMaster>> getJobMaster() async {
     var token = await TokenAccess.getToken();
     var urlGet = '$baseurl/jobs';
@@ -141,6 +142,25 @@ class ApiServices {
     if (response.statusCode == 200) {
       final List jsonResponse = json.decode(response.body)['result']['data'];
       return jsonResponse.map((data) => JobMaster.fromJson(data)).toList();
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  //Get Job Master
+  Future<List<DailySleep>> getDailySleep() async {
+    var token = await TokenAccess.getToken();
+    var urlGet = '$baseurl/sleep/daily';
+    final response = await http.get(
+      Uri.parse(urlGet),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      final List jsonResponse = json.decode(response.body)['result']['data'];
+      return jsonResponse.map((data) => DailySleep.fromJson(data)).toList();
     } else {
       throw Exception('Failed to load data');
     }

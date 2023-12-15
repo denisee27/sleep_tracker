@@ -150,7 +150,10 @@ class _SleepResultPageState extends State<SleepResultPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QualitySleepPage()));
+                              builder: (context) => QualitySleepPage(
+                                    sleep_start: widget.sleepStart,
+                                    sleep_end: sleepEnd,
+                                  )));
                     },
                   ),
                 ),
