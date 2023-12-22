@@ -27,7 +27,8 @@ class DailySleep {
     userId = json['user_id'];
     sleepStart = json['sleep_start'];
     sleepEnd = json['sleep_end'];
-    sleepDuration = json['sleep_duration'] == 0 ? 0.0 : json['sleep_duration'];
+    // sleepDuration = json['sleep_duration'] == 0 ? 0.0 : json['sleep_duration'];
+    sleepDuration = json['sleep_duration']?.toDouble();
     sleepQuality = json['sleep_quality'];
     dailyScoring = json['daily_scoring'];
     sleepResult = json['sleep_result'];

@@ -86,19 +86,14 @@ class _DailyPageState extends State<DailyPage> {
                       // ),
                       for (int i = 0; i < dailySleep.length; i++) ...[
                         Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 25),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: const Color.fromRGBO(39, 46, 73, 1)),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromRGBO(39, 46, 73, 1)),
                           child: Column(
                             children: [
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  (DateFormat("dd MMMM y").format(
-                                      DateTime.parse(
-                                          dailySleep.elementAt(i).createdAt!))),
+                                  (DateFormat("dd MMMM y").format(DateTime.parse(dailySleep.elementAt(i).createdAt!))),
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -107,36 +102,23 @@ class _DailyPageState extends State<DailyPage> {
                               ),
                               Container(
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text("⏰ "),
                                         Container(
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "Durasi Tidur",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    color: Colors.white),
+                                                style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                               ),
                                               Text(
-                                                formatDuration(
-                                                    dailySleep
-                                                        .elementAt(i)
-                                                        .sleepStart!,
-                                                    dailySleep
-                                                        .elementAt(i)
-                                                        .sleepEnd!),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white),
+                                                formatDuration(dailySleep.elementAt(i).sleepStart!, dailySleep.elementAt(i).sleepEnd!),
+                                                style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                                               )
                                             ],
                                           ),
@@ -144,26 +126,20 @@ class _DailyPageState extends State<DailyPage> {
                                       ],
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Text("🌟 "),
                                         Container(
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "Waktu Tidur",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w300,
-                                                    color: Colors.white),
+                                                style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                               ),
                                               Text(
-                                                "${DateFormat("HH:m").format(DateTime.parse(dailySleep.elementAt(i).sleepStart!))} - ${DateFormat("HH:m").format(DateTime.parse(dailySleep.elementAt(i).sleepEnd!))}",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white),
+                                                "${DateFormat("HH:mm").format(DateTime.parse(dailySleep.elementAt(i).sleepStart!))} - ${DateFormat("HH:mm").format(DateTime.parse(dailySleep.elementAt(i).sleepEnd!))}",
+                                                style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                                               )
                                             ],
                                           ),
@@ -185,11 +161,8 @@ class _DailyPageState extends State<DailyPage> {
                 : Container(
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: const Color.fromRGBO(39, 46, 73, 1)),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromRGBO(39, 46, 73, 1)),
                       child: Column(
                         children: [
                           Align(
@@ -212,20 +185,15 @@ class _DailyPageState extends State<DailyPage> {
                                     Text("⏰ "),
                                     Container(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Durasi Tidur",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                color: Colors.white),
+                                            style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                           ),
                                           Text(
                                             "0 Jam 0 Menit",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white),
+                                            style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                                           )
                                         ],
                                       ),
@@ -238,20 +206,15 @@ class _DailyPageState extends State<DailyPage> {
                                     Text("🌟 "),
                                     Container(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Waktu Tidur",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                color: Colors.white),
+                                            style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                           ),
                                           Text(
                                             "-- : -- - -- : --",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white),
+                                            style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                                           )
                                         ],
                                       ),

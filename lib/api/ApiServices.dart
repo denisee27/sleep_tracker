@@ -18,7 +18,7 @@ loadPref(id, name, initials, email) async {
 
 class ApiServices {
   // final baseurl = 'http://192.168.18.197/sleeptracker';
-  final baseurl = 'http://192.168.39.243/sleeptracker';
+  final baseurl = 'http://192.168.18.197/sleeptracker';
   // final baseurl = 'http://10.3.6.91/sleeptracker';
 
   //Login User
@@ -62,8 +62,7 @@ class ApiServices {
   }
 
 //Update User Profile
-  Future updateUser(String name, String job, String bod, String gender,
-      int weight, int height) async {
+  Future updateUser(String name, String job, String bod, String gender, int weight, int height) async {
     var urlPost = '$baseurl/users/update';
     var token = await TokenAccess.getToken();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -81,11 +80,7 @@ class ApiServices {
       }
     };
     final response = await http.post(Uri.parse(urlPost),
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-          'Content-type': "application/json",
-          'Accept': "application/json"
-        },
+        headers: {HttpHeaders.authorizationHeader: 'Bearer $token', 'Content-type': "application/json", 'Accept': "application/json"},
         body: jsonEncode(payload));
     print(response.body);
     if (response.statusCode == 200) {
@@ -98,8 +93,7 @@ class ApiServices {
   }
 
   //Create Sleep
-  Future createSleep(
-      DateTime sleep_start, DateTime sleep_end, int sleep_quality) async {
+  Future createSleep(DateTime sleep_start, DateTime sleep_end, int sleep_quality) async {
     var urlPost = '$baseurl/sleep/create';
     var token = await TokenAccess.getToken();
 
@@ -113,11 +107,7 @@ class ApiServices {
       }
     };
     final response = await http.post(Uri.parse(urlPost),
-        headers: {
-          HttpHeaders.authorizationHeader: 'Bearer $token',
-          'Content-type': "application/json",
-          'Accept': "application/json"
-        },
+        headers: {HttpHeaders.authorizationHeader: 'Bearer $token', 'Content-type': "application/json", 'Accept': "application/json"},
         body: jsonEncode(payload));
     if (response.statusCode == 200) {
       return true;
