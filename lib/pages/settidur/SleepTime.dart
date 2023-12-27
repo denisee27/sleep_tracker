@@ -5,11 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:numberpicker/numberpicker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleeptracker_app/pages/HomePage.dart';
-import 'package:sleeptracker_app/pages/settidur/SleepResult.dart';
+import 'package:sleeptracker_app/pages/settidur/SleepSummary.dart';
 
 class SleepTimePage extends StatefulWidget {
   final String? time;
@@ -110,10 +109,7 @@ class _SleepTimePageState extends State<SleepTimePage> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Selamat Tidur, ${nameUser}",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 26),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 26),
                         )),
                   ],
                 ),
@@ -124,16 +120,9 @@ class _SleepTimePageState extends State<SleepTimePage> {
                     child: Column(children: [
                       Text(
                         _timeString!,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 50,
-                            fontWeight: FontWeight.w500),
+                        style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.w500),
                       ),
-                      Text("Waktu Bangun ${widget.time}",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w200))
+                      Text("Waktu Bangun ${widget.time}", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200))
                     ]),
                   ),
                 ]),
@@ -147,8 +136,7 @@ class _SleepTimePageState extends State<SleepTimePage> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(0, 144, 144, 1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                       ),
                       child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 13),
@@ -157,17 +145,12 @@ class _SleepTimePageState extends State<SleepTimePage> {
                             children: [
                               Text(
                                 'Wake Up',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                             ],
                           )),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    SleepResultPage(sleepStart: sleepStart)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SleepResultPage(sleepStart: sleepStart)));
                       },
                     ),
                   ),
@@ -186,8 +169,7 @@ class WaveAnimation extends StatefulWidget {
   _WaveAnimationState createState() => _WaveAnimationState();
 }
 
-class _WaveAnimationState extends State<WaveAnimation>
-    with SingleTickerProviderStateMixin {
+class _WaveAnimationState extends State<WaveAnimation> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
   @override
@@ -243,9 +225,7 @@ class WavePainter extends CustomPainter {
     Path path = Path();
 
     for (double i = size.width; i >= 0.0; i -= 10.0) {
-      double yOffset = sin((i / size.width * numberOfWaves * pi) +
-              (animationValue * 2 * pi * speedFactor)) *
-          waveHeight;
+      double yOffset = sin((i / size.width * numberOfWaves * pi) + (animationValue * 2 * pi * speedFactor)) * waveHeight;
 
       double waveSizeFactor = 1 + sin((i / size.width * pi));
 

@@ -61,17 +61,14 @@ class _MonthPageState extends State<MonthPage> {
       header: 'Bangun Tidur',
       // format: 'point.y',
     );
-    _selectionBehaviorDuratiTidur = SelectionBehavior(
-        enable: true,
-        selectedColor: Color.fromRGBO(227, 81, 89, 1),
-        unselectedColor: Color.fromRGBO(96, 53, 74, 1));
+    _selectionBehaviorDuratiTidur =
+        SelectionBehavior(enable: true, selectedColor: Color.fromRGBO(227, 81, 89, 1), unselectedColor: Color.fromRGBO(96, 53, 74, 1));
     _tooltipDurasiTidur = TooltipBehavior(
       enable: true,
       tooltipPosition: TooltipPosition.pointer,
       format: 'point.y',
       header: 'Durasi Tidur',
     );
-
     super.initState();
   }
 
@@ -141,15 +138,11 @@ class _MonthPageState extends State<MonthPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(Icons.arrow_back_ios_new_rounded,
-                          color: Colors.white, size: 15),
+                      Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 15),
                       // _spaceH(),
                       Text(
                         "Juni",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 15),
                       ),
                       // _spaceH(),
                       Icon(
@@ -168,9 +161,7 @@ class _MonthPageState extends State<MonthPage> {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color.fromRGBO(39, 46, 73, 1)),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromRGBO(39, 46, 73, 1)),
                   child: Column(
                     children: [
                       Container(
@@ -184,21 +175,15 @@ class _MonthPageState extends State<MonthPage> {
                                 children: [
                                   Text(
                                     "Average",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
                                   Text(
                                     "Durasi Tidur",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
                                   Text(
                                     "7 Jam 2 Menit",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                                   )
                                 ],
                               ),
@@ -211,9 +196,7 @@ class _MonthPageState extends State<MonthPage> {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color.fromRGBO(39, 46, 73, 1)),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromRGBO(39, 46, 73, 1)),
                   child: Column(
                     children: [
                       Container(
@@ -227,21 +210,15 @@ class _MonthPageState extends State<MonthPage> {
                                 children: [
                                   Text(
                                     "Total",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
                                   Text(
                                     "Durasi Tidur",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
                                   Text(
                                     "7 Jam 2 Menit",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                                   )
                                 ],
                               ),
@@ -260,9 +237,7 @@ class _MonthPageState extends State<MonthPage> {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color.fromRGBO(39, 46, 73, 1)),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromRGBO(39, 46, 73, 1)),
                   child: Column(
                     children: [
                       Container(
@@ -276,21 +251,15 @@ class _MonthPageState extends State<MonthPage> {
                                 children: [
                                   Text(
                                     "Average",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
                                   Text(
                                     "Mulai Tidur",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
                                   Text(
                                     "7 Jam 2 Menit",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                                   )
                                 ],
                               ),
@@ -303,9 +272,7 @@ class _MonthPageState extends State<MonthPage> {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color.fromRGBO(39, 46, 73, 1)),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color.fromRGBO(39, 46, 73, 1)),
                   child: Column(
                     children: [
                       Container(
@@ -319,21 +286,15 @@ class _MonthPageState extends State<MonthPage> {
                                 children: [
                                   Text(
                                     "Average",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
                                   Text(
                                     "Bangun Tidur",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
                                   Text(
                                     "7 Jam 2 Menit",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white),
+                                    style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                                   )
                                 ],
                               ),
@@ -352,26 +313,17 @@ class _MonthPageState extends State<MonthPage> {
                   tooltipBehavior: _tooltipDurasiTidur,
                   primaryXAxis: DateTimeAxis(
                       axisLabelFormatter: (axisLabelRenderArgs) {
-                        final String text = DateFormat('EEEE').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                axisLabelRenderArgs.value.toInt()));
-                        const TextStyle style = TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w400);
+                        final String text = DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(axisLabelRenderArgs.value.toInt()));
+                        const TextStyle style = TextStyle(color: Colors.white, fontWeight: FontWeight.w400);
                         return ChartAxisLabel(text, style);
                       },
                       majorGridLines: MajorGridLines(width: 0),
                       minorTicksPerInterval: 0),
-                  primaryYAxis: NumericAxis(
-                      axisLine: AxisLine(width: 0),
-                      decimalPlaces: 0,
-                      interval: 2),
+                  primaryYAxis: NumericAxis(axisLine: AxisLine(width: 0), decimalPlaces: 0, interval: 2),
                   title: ChartTitle(
                       alignment: ChartAlignment.near,
                       text: 'Durasi Tidur',
-                      textStyle: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500)),
+                      textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
                   series: <ChartSeries>[
                     ColumnSeries<DurasiTidur, DateTime>(
                         dataSource: dataDurasiTidur,
@@ -388,19 +340,14 @@ class _MonthPageState extends State<MonthPage> {
             _spaceV(),
             Container(
               child: SfCartesianChart(
-                primaryXAxis:
-                    NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                primaryYAxis:
-                    NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
                 tooltipBehavior: _tooltipMulaiTidur,
                 enableAxisAnimation: true,
                 title: ChartTitle(
                     alignment: ChartAlignment.near,
                     text: 'Mulai Tidur',
-                    textStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500)),
+                    textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
                 // primaryXAxis: NumericAxis(isInversed: true),
                 // primaryYAxis: NumericAxis(isInversed: true),
                 series: <ChartSeries>[
@@ -420,19 +367,14 @@ class _MonthPageState extends State<MonthPage> {
             _spaceV(),
             Container(
               child: SfCartesianChart(
-                primaryXAxis:
-                    NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                primaryYAxis:
-                    NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
                 tooltipBehavior: _tooltipBangunTidur,
                 enableAxisAnimation: true,
                 title: ChartTitle(
                     alignment: ChartAlignment.near,
                     text: 'Bangun Tidur',
-                    textStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500)),
+                    textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
                 // primaryXAxis: NumericAxis(isInversed: true),
                 // primaryYAxis: NumericAxis(isInversed: true),
                 series: <ChartSeries>[

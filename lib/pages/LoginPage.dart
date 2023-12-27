@@ -31,11 +31,9 @@ class _LoginPageState extends State<LoginPage> {
     print(response);
     if (response['status'] == 200) {
       if (response['result']['user']['name'] != null) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => HomePage(index: 0)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(index: 0)));
       } else {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => WelcomeName()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeName()));
       }
     } else {
       setState(() {
@@ -88,10 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                       "Masuk menggunakan akun yang sudah kamu daftarkan",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300),
+                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w300),
                     )),
                   ],
                 ),
@@ -110,9 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                                 return 'Please enter some text';
                               }
 
-                              bool _emailValid = RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value);
+                              bool _emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
                               if (!_emailValid) {
                                 return 'Please enter a valid email';
                               }
@@ -130,8 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               labelStyle: TextStyle(color: Colors.white),
-                              floatingLabelStyle:
-                                  TextStyle(color: Colors.white),
+                              floatingLabelStyle: TextStyle(color: Colors.white),
                               focusColor: Colors.white,
                               filled: true,
                               fillColor: Color.fromRGBO(39, 46, 73, 1),
@@ -169,8 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                   labelStyle: TextStyle(color: Colors.white),
-                                  floatingLabelStyle:
-                                      TextStyle(color: Colors.white),
+                                  floatingLabelStyle: TextStyle(color: Colors.white),
                                   focusColor: Colors.white,
                                   filled: true,
                                   fillColor: Color.fromRGBO(39, 46, 73, 1),
@@ -179,15 +170,10 @@ class _LoginPageState extends State<LoginPage> {
                                     color: Colors.white,
                                   ),
                                   suffixIcon: IconButton(
-                                    icon: Icon(
-                                        _isPasswordVisible
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        color: Colors.white),
+                                    icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility, color: Colors.white),
                                     onPressed: () {
                                       setState(() {
-                                        _isPasswordVisible =
-                                            !_isPasswordVisible;
+                                        _isPasswordVisible = !_isPasswordVisible;
                                       });
                                     },
                                   )),
@@ -201,8 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: InkWell(
                                 child: Text(
                                   "Lupa Password ?",
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(0, 144, 144, 1)),
+                                  style: TextStyle(color: Color.fromRGBO(0, 144, 144, 1)),
                                 ),
                                 onTap: () {
                                   showModalBottomSheet<void>(
@@ -212,39 +197,27 @@ class _LoginPageState extends State<LoginPage> {
                                         top: Radius.circular(25.0),
                                       ),
                                     ),
-                                    backgroundColor:
-                                        Color.fromRGBO(39, 46, 73, 1),
+                                    backgroundColor: Color.fromRGBO(39, 46, 73, 1),
                                     builder: (BuildContext context) {
                                       return SizedBox(
                                         height: 350,
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 20),
+                                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                                           child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Column(
                                                 children: [
                                                   Container(
-                                                    margin: EdgeInsets.only(
-                                                        bottom: 15),
+                                                    margin: EdgeInsets.only(bottom: 15),
                                                     width: 50,
                                                     height: 10,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        color: Color.fromRGBO(
-                                                            0, 144, 144, 1)),
+                                                    decoration:
+                                                        BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color.fromRGBO(0, 144, 144, 1)),
                                                   ),
                                                   Text(
                                                     "Lupa Password?",
-                                                    style: TextStyle(
-                                                        fontSize: 30,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                    style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
                                                   ),
                                                 ],
                                               ),
@@ -252,9 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                                                 child: Text(
                                                   'Instruksi untuk melakukan reset password akan dikirim melalui email yang kamu gunakan untuk mendaftar.',
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17),
+                                                  style: TextStyle(color: Colors.white, fontSize: 17),
                                                 ),
                                               ),
                                               Container(
@@ -262,72 +233,41 @@ class _LoginPageState extends State<LoginPage> {
                                                 child: Column(
                                                   children: [
                                                     TextFormField(
-                                                      style: TextStyle(
-                                                          color: Color.fromRGBO(
-                                                              39, 46, 73, 1)),
+                                                      style: TextStyle(color: Color.fromRGBO(39, 46, 73, 1)),
                                                       controller: emailC,
                                                       validator: (value) {
-                                                        if (value == null ||
-                                                            value.isEmpty) {
+                                                        if (value == null || value.isEmpty) {
                                                           return 'Please enter some text';
                                                         }
 
-                                                        bool _emailValid = RegExp(
-                                                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                            .hasMatch(value);
+                                                        bool _emailValid =
+                                                            RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                                .hasMatch(value);
                                                         if (!_emailValid) {
                                                           return 'Please enter a valid email';
                                                         }
 
                                                         return null;
                                                       },
-                                                      decoration:
-                                                          InputDecoration(
+                                                      decoration: InputDecoration(
                                                         // labelText: 'Email',
                                                         hintText: 'Email',
-                                                        border:
-                                                            InputBorder.none,
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    39,
-                                                                    46,
-                                                                    73,
-                                                                    1),
+                                                        border: InputBorder.none,
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(10.0),
+                                                          borderSide: BorderSide(
+                                                            color: Color.fromRGBO(39, 46, 73, 1),
                                                             width: 2.0,
                                                           ),
                                                         ),
-                                                        hintStyle: TextStyle(
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    39,
-                                                                    46,
-                                                                    73,
-                                                                    1)),
-                                                        floatingLabelStyle:
-                                                            TextStyle(
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        39,
-                                                                        46,
-                                                                        73,
-                                                                        1)),
-                                                        focusColor:
-                                                            Color.fromRGBO(
-                                                                39, 46, 73, 1),
+                                                        hintStyle: TextStyle(color: Color.fromRGBO(39, 46, 73, 1)),
+                                                        floatingLabelStyle: TextStyle(color: Color.fromRGBO(39, 46, 73, 1)),
+                                                        focusColor: Color.fromRGBO(39, 46, 73, 1),
                                                         filled: true,
                                                         fillColor: Colors.white,
                                                         prefixIcon: const Icon(
                                                           Icons.mail_outline,
-                                                          color: Color.fromRGBO(
-                                                              39, 46, 73, 1),
+                                                          color: Color.fromRGBO(39, 46, 73, 1),
                                                         ),
                                                       ),
                                                     ),
@@ -338,28 +278,15 @@ class _LoginPageState extends State<LoginPage> {
                                                       width: 350,
                                                       height: 50,
                                                       child: ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          backgroundColor:
-                                                              Color.fromRGBO(0,
-                                                                  144, 144, 1),
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          7)),
+                                                        style: ElevatedButton.styleFrom(
+                                                          backgroundColor: Color.fromRGBO(0, 144, 144, 1),
+                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                                                         ),
                                                         child: const Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  10.0),
+                                                          padding: EdgeInsets.all(10.0),
                                                           child: Text(
                                                             'Reset Password',
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                                                           ),
                                                         ),
                                                         onPressed: () {
@@ -398,17 +325,14 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(0, 144, 144, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                         ),
                         child: Padding(
                             padding: EdgeInsets.all(10.0),
                             child: !loading
                                 ? Text(
                                     'Masuk',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                                   )
                                 : SizedBox(
                                     width: 25,
@@ -438,16 +362,12 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RegisterPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                             // handleLogin();
                           },
                           child: Text(
                             " Daftar Sekarang",
-                            style: TextStyle(
-                                color: Color.fromRGBO(0, 144, 144, 1)),
+                            style: TextStyle(color: Color.fromRGBO(0, 144, 144, 1)),
                           ),
                         )
                       ],

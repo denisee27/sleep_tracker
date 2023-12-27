@@ -1,10 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sleeptracker_app/pages/jurnaltidur/JurnalPage.dart';
 import 'package:sleeptracker_app/pages/profile/ProfilePage.dart';
 import 'package:sleeptracker_app/pages/settidur/SleepTime.dart';
@@ -69,20 +64,14 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Icon(
                             Icons.auto_stories_outlined,
-                            color: activeIndex == 0
-                                ? Color.fromRGBO(255, 199, 84, 1)
-                                : Color.fromRGBO(98, 126, 174, 1),
+                            color: activeIndex == 0 ? Color.fromRGBO(255, 199, 84, 1) : Color.fromRGBO(98, 126, 174, 1),
                             size: 30,
                           ),
                           _gapTitle(),
                           Text(
                             "Jurnal Tidur",
                             style: TextStyle(
-                                fontSize: 12,
-                                color: activeIndex == 0
-                                    ? Colors.white
-                                    : Color.fromRGBO(98, 126, 174, 1),
-                                fontWeight: FontWeight.bold),
+                                fontSize: 12, color: activeIndex == 0 ? Colors.white : Color.fromRGBO(98, 126, 174, 1), fontWeight: FontWeight.bold),
                           ),
                         ],
                       )),
@@ -97,20 +86,14 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Icon(
                             Icons.dark_mode_rounded,
-                            color: activeIndex == 3
-                                ? Color.fromRGBO(255, 199, 84, 1)
-                                : Color.fromRGBO(98, 126, 174, 1),
+                            color: activeIndex == 3 ? Color.fromRGBO(255, 199, 84, 1) : Color.fromRGBO(98, 126, 174, 1),
                             size: 30,
                           ),
                           _gapTitle(),
                           Text(
                             "Sleep",
                             style: TextStyle(
-                                fontSize: 12,
-                                color: activeIndex == 3
-                                    ? Colors.white
-                                    : Color.fromRGBO(98, 126, 174, 1),
-                                fontWeight: FontWeight.bold),
+                                fontSize: 12, color: activeIndex == 3 ? Colors.white : Color.fromRGBO(98, 126, 174, 1), fontWeight: FontWeight.bold),
                           ),
                         ],
                       )),
@@ -123,8 +106,7 @@ class _HomePageState extends State<HomePage> {
                           top: Radius.circular(25.0),
                         ),
                       ),
-                      backgroundColor:
-                          Color.fromRGBO(39, 46, 73, 1), // <-- SEE HERE
+                      backgroundColor: Color.fromRGBO(39, 46, 73, 1), // <-- SEE HERE
                       builder: (BuildContext context) {
                         return FractionallySizedBox(
                           heightFactor: 0.8,
@@ -132,8 +114,7 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.symmetric(vertical: 50),
                             child: Center(
                               child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Container(
                                     child: Column(
@@ -142,9 +123,7 @@ class _HomePageState extends State<HomePage> {
                                           alignment: Alignment.bottomCenter,
                                           child: Text(
                                             "Pilih Waktu Bangun Tidurmu",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 21),
+                                            style: TextStyle(color: Colors.white, fontSize: 21),
                                           ),
                                         ),
                                       ],
@@ -152,76 +131,58 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Container(
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            StatefulBuilder(
-                                                builder: (context4, setState2) {
+                                            StatefulBuilder(builder: (context4, setState2) {
                                               return NumberPicker(
                                                 itemHeight: 90,
                                                 itemWidth: 120,
                                                 value: hour,
                                                 minValue: 0,
                                                 maxValue: 23,
-                                                onChanged: (value) => setState2(
-                                                    () => hour = value),
+                                                onChanged: (value) => setState2(() => hour = value),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  border: Border.all(
-                                                      color: Color.fromRGBO(
-                                                          0, 144, 144, 1)),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  border: Border.all(color: Color.fromRGBO(0, 144, 144, 1)),
                                                 ),
                                                 selectedTextStyle: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 50,
-                                                  color: Colors
-                                                      .white, // Ubah warna teks (value) menjadi putih
+                                                  color: Colors.white, // Ubah warna teks (value) menjadi putih
                                                 ),
                                                 textStyle: TextStyle(
                                                   fontSize: 30,
-                                                  color: Colors
-                                                      .grey, // Ubah warna teks (value) menjadi putih
+                                                  color: Colors.grey, // Ubah warna teks (value) menjadi putih
                                                 ),
                                               );
                                             }),
                                             Text(
                                               " : ",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 50),
+                                              style: TextStyle(color: Colors.white, fontSize: 50),
                                             ),
-                                            StatefulBuilder(
-                                                builder: (context4, setState2) {
+                                            StatefulBuilder(builder: (context4, setState2) {
                                               return NumberPicker(
                                                 itemHeight: 90,
                                                 itemWidth: 120,
                                                 value: minute,
                                                 minValue: 00,
                                                 maxValue: 59,
-                                                onChanged: (value) => setState2(
-                                                    () => minute = value),
+                                                onChanged: (value) => setState2(() => minute = value),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  border: Border.all(
-                                                      color: Color.fromRGBO(
-                                                          0, 144, 144, 1)),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  border: Border.all(color: Color.fromRGBO(0, 144, 144, 1)),
                                                 ),
                                                 selectedTextStyle: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 50,
-                                                  color: Colors
-                                                      .white, // Ubah warna teks (value) menjadi putih
+                                                  color: Colors.white, // Ubah warna teks (value) menjadi putih
                                                 ),
                                                 textStyle: TextStyle(
                                                   fontSize: 30,
-                                                  color: Colors
-                                                      .grey, // Ubah warna teks (value) menjadi putih
+                                                  color: Colors.grey, // Ubah warna teks (value) menjadi putih
                                                 ),
                                               );
                                             }),
@@ -231,15 +192,12 @@ class _HomePageState extends State<HomePage> {
                                           text: TextSpan(
                                             children: [
                                               TextSpan(
-                                                text:
-                                                    "Waktu tidur ideal yang cukup adalah selama ",
-                                                style: TextStyle(
-                                                    color: Colors.white),
+                                                text: "Waktu tidur ideal yang cukup adalah selama ",
+                                                style: TextStyle(color: Colors.white),
                                               ),
                                               TextSpan(
                                                 text: "8 jam",
-                                                style: TextStyle(
-                                                    color: Colors.red),
+                                                style: TextStyle(color: Colors.red),
                                               ),
                                             ],
                                           ),
@@ -248,45 +206,27 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 20, horizontal: 10),
+                                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                                     child: Column(
                                       children: [
                                         SizedBox(
                                           width: 400,
                                           child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: Color.fromRGBO(
-                                                  0, 144, 144, 1),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          50)),
+                                              backgroundColor: Color.fromRGBO(0, 144, 144, 1),
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                                             ),
                                             child: const Padding(
                                               padding: EdgeInsets.all(10.0),
                                               child: Text(
                                                 'Tidur Sekarang',
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                                               ),
                                             ),
                                             onPressed: () {
-                                              TimeOfDay selectedTime =
-                                                  TimeOfDay(
-                                                      hour: hour,
-                                                      minute: minute);
-                                              String formattedTime =
-                                                  selectedTime.format(context);
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          SleepTimePage(
-                                                              time:
-                                                                  formattedTime)));
+                                              TimeOfDay selectedTime = TimeOfDay(hour: hour, minute: minute);
+                                              String formattedTime = selectedTime.format(context);
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => SleepTimePage(time: formattedTime)));
                                             },
                                           ),
                                         ),
@@ -296,9 +236,7 @@ class _HomePageState extends State<HomePage> {
                                         InkWell(
                                           child: Text(
                                             "Nanti Saja",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15),
+                                            style: TextStyle(color: Colors.white, fontSize: 15),
                                           ),
                                           onTap: () {
                                             Navigator.pop(context);
@@ -329,9 +267,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Icon(
                             Icons.person,
-                            color: activeIndex == 2
-                                ? Color.fromRGBO(255, 199, 84, 1)
-                                : Color.fromRGBO(98, 126, 174, 1),
+                            color: activeIndex == 2 ? Color.fromRGBO(255, 199, 84, 1) : Color.fromRGBO(98, 126, 174, 1),
                             size: 33,
                           ),
                           _gapTitle(),
@@ -339,11 +275,7 @@ class _HomePageState extends State<HomePage> {
                             "Profile",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 11,
-                                color: activeIndex == 2
-                                    ? Colors.white
-                                    : Color.fromRGBO(98, 126, 174, 1),
-                                fontWeight: FontWeight.bold),
+                                fontSize: 11, color: activeIndex == 2 ? Colors.white : Color.fromRGBO(98, 126, 174, 1), fontWeight: FontWeight.bold),
                           ),
                         ],
                       )),

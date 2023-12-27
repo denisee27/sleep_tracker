@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sleeptracker_app/pages/LoginPage.dart';
 import 'package:sleeptracker_app/pages/RegisterPage.dart';
-import 'package:sleeptracker_app/pages/welcome/WelcomeName.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({Key? key}) : super(key: key);
@@ -38,10 +36,7 @@ class _FirstPageState extends State<FirstPage> {
                   Center(
                       child: Text(
                     "Sleepy Panda",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
                   )),
                 ],
               ),
@@ -66,22 +61,17 @@ class _FirstPageState extends State<FirstPage> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromRGBO(0, 144, 144, 1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                       ),
                       child: const Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
                           'Masuk',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                         // handleLogin();
                       },
                     ),
@@ -92,24 +82,17 @@ class _FirstPageState extends State<FirstPage> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                       ),
                       child: const Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
                           'Daftar',
-                          style: TextStyle(
-                              color: Color.fromRGBO(0, 144, 144, 1),
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color.fromRGBO(0, 144, 144, 1), fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                         // handleLogin();
                       },
                     ),

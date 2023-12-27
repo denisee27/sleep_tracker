@@ -60,69 +60,38 @@ class _SleepResultPageState extends State<SleepResultPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Selamat Pagi, ${nameUser}",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 26),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 26),
                       )),
                 ],
               ),
             ),
             Container(
               height: 300,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 140,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "⏰",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text("Durasi Tidur Kamu",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w200)),
-                            Text("${formatDuration(sleepDuration!)}",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500))
-                          ]),
+              child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Container(
+                  height: 140,
+                  child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                    Text(
+                      "⏰",
+                      style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.w500),
                     ),
-                    Container(
-                      height: 140,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "🌟",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text("Waktu Tidur Kamu",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w200)),
-                            Text(
-                                "${_formatDateTime(widget.sleepStart!)} - ${_formatDateTime(sleepEnd!)}",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500))
-                          ]),
-                    ),
+                    Text("Durasi Tidur Kamu", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200)),
+                    Text("${formatDuration(sleepDuration!)}", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500))
                   ]),
+                ),
+                Container(
+                  height: 140,
+                  child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                    Text(
+                      "🌟",
+                      style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.w500),
+                    ),
+                    Text("Waktu Tidur Kamu", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200)),
+                    Text("${_formatDateTime(widget.sleepStart!)} - ${_formatDateTime(sleepEnd!)}",
+                        style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500))
+                  ]),
+                ),
+              ]),
             ),
             Container(
               child: Align(
@@ -131,8 +100,7 @@ class _SleepResultPageState extends State<SleepResultPage> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(0, 144, 144, 1),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
                     ),
                     child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 13),
@@ -141,8 +109,7 @@ class _SleepResultPageState extends State<SleepResultPage> {
                           children: [
                             Text(
                               'Isi Jurnal Tidur',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ],
                         )),

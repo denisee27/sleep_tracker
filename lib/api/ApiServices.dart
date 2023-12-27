@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:sleeptracker_app/api/Token.dart';
 import 'package:sleeptracker_app/models/DailySleep.dart';
 import 'package:sleeptracker_app/models/JobMaster.dart';
+import 'package:sleeptracker_app/models/SleepHistory.dart';
 
 loadPref(id, name, initials, email) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -17,9 +18,8 @@ loadPref(id, name, initials, email) async {
 }
 
 class ApiServices {
-  // final baseurl = 'http://192.168.18.197/sleeptracker';
+  // final baseurl = 'http://192.168.18.1/sleeptracker';
   final baseurl = 'http://192.168.18.197/sleeptracker';
-  // final baseurl = 'http://10.3.6.91/sleeptracker';
 
   //Login User
   Future loginUser(String email, String password) async {
@@ -38,7 +38,7 @@ class ApiServices {
       await TokenAccess.storeToken(token);
       return json.decode(response.body);
     } else if (response.statusCode != 200) {
-      return false;
+      return json.decode(response.body);
     } else {
       throw Exception('Failed to login');
     }
@@ -82,7 +82,6 @@ class ApiServices {
     final response = await http.post(Uri.parse(urlPost),
         headers: {HttpHeaders.authorizationHeader: 'Bearer $token', 'Content-type': "application/json", 'Accept': "application/json"},
         body: jsonEncode(payload));
-    print(response.body);
     if (response.statusCode == 200) {
       return true;
     } else if (response.statusCode != 200) {
@@ -137,7 +136,7 @@ class ApiServices {
     }
   }
 
-  //Get Job Master
+  //Get Daily Sleep
   Future<List<DailySleep>> getDailySleep() async {
     var token = await TokenAccess.getToken();
     var urlGet = '$baseurl/sleep/daily';
@@ -151,6 +150,24 @@ class ApiServices {
     if (response.statusCode == 200) {
       final List jsonResponse = json.decode(response.body)['result']['data'];
       return jsonResponse.map((data) => DailySleep.fromJson(data)).toList();
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  //Get Week Sleep
+  Future<SleepSummary> getWeekSleep() async {
+    var token = await TokenAccess.getToken();
+    var urlGet = '$baseurl/sleep/week';
+    final response = await http.get(
+      Uri.parse(urlGet),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final jsonresponse = json.decode(response.body)['result'];
+      return SleepSummary.fromJson(jsonresponse);
     } else {
       throw Exception('Failed to load data');
     }

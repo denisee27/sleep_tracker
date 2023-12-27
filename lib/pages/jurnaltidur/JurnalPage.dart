@@ -28,9 +28,7 @@ class _JurnalPageState extends State<JurnalPage> with TickerProviderStateMixin {
 
   @override
   Future<bool> _onBackPressed() {
-    if (currentBackPressTime == null ||
-        DateTime.now().difference(currentBackPressTime!) >
-            Duration(seconds: 2)) {
+    if (currentBackPressTime == null || DateTime.now().difference(currentBackPressTime!) > Duration(seconds: 2)) {
       currentBackPressTime = DateTime.now();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Press again to exit'),
@@ -59,8 +57,7 @@ class _JurnalPageState extends State<JurnalPage> with TickerProviderStateMixin {
             centerTitle: true,
             title: const Text('Jurnal Tidur'),
             bottom: TabBar(
-              indicator: UnderlineTabIndicator(
-                  insets: EdgeInsets.symmetric(horizontal: 70.0)),
+              indicator: UnderlineTabIndicator(insets: EdgeInsets.symmetric(horizontal: 70.0)),
               indicatorColor: Colors.white,
               indicatorPadding: EdgeInsets.symmetric(vertical: 10),
               controller: _tabController,
