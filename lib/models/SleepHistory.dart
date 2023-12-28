@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:intl/intl.dart';
@@ -137,19 +136,20 @@ class AverageSleep {
 }
 
 class ChartDuration {
-  String? date;
+  DateTime? date;
   double? duration;
 
   ChartDuration({this.date, this.duration});
 
   ChartDuration.fromJson(Map<String, dynamic> json) {
-    date = json['date'];
+    final String dateString = json['date'];
+    date = DateFormat("yyyy-mm-dd").parse(dateString);
     duration = json['duration'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['date'] = this.date;
+    data['date'] = DateFormat("dd-mm-yyyy").format(this.date!);
     data['duration'] = this.duration;
     return data;
   }
@@ -175,14 +175,16 @@ class LineWake {
 }
 
 class LineSleep {
-  String? sleep;
-  String? time;
+  DateTime? sleep;
+  DateTime? time;
 
   LineSleep({this.sleep, this.time});
 
   LineSleep.fromJson(Map<String, dynamic> json) {
-    sleep = json['sleep'];
-    time = json['time'];
+    final String dateString = json['sleep'];
+    final String timeString = json['time'];
+    sleep = DateFormat("yyyy-mm-dd HH:MM:SS").parse(dateString);
+    sleep = DateFormat("HH:MM").parse(timeString);
   }
 
   Map<String, dynamic> toJson() {

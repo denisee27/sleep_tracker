@@ -47,16 +47,6 @@ class _WeekPageState extends State<WeekPage> {
     BangunTidur(2018, 3.43, Color.fromRGBO(255, 199, 84, 1)),
   ];
 
-  final List<DurasiTidur> dataDurasiTidur = <DurasiTidur>[
-    DurasiTidur(DateTime(2023, 12, 4), 30, Color.fromRGBO(227, 81, 89, 1)),
-    DurasiTidur(DateTime(2023, 12, 5), 34, Color.fromRGBO(227, 81, 89, 1)),
-    DurasiTidur(DateTime(2023, 12, 6), 30, Color.fromRGBO(227, 81, 89, 1)),
-    DurasiTidur(DateTime(2023, 12, 7), 30, Color.fromRGBO(227, 81, 89, 1)),
-    DurasiTidur(DateTime(2023, 12, 8), 35, Color.fromRGBO(227, 81, 89, 1)),
-    DurasiTidur(DateTime(2023, 12, 9), 35, Color.fromRGBO(227, 81, 89, 1)),
-    DurasiTidur(DateTime(2023, 12, 10), 35, Color.fromRGBO(227, 81, 89, 1)),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -65,7 +55,7 @@ class _WeekPageState extends State<WeekPage> {
     _tooltipMulaiTidur = TooltipBehavior(
       enable: true,
       header: 'Mulai Tidur',
-      // format: 'point.y',
+      format: 'point.y',
     );
     _tooltipBangunTidur = TooltipBehavior(
       enable: true,
@@ -77,7 +67,7 @@ class _WeekPageState extends State<WeekPage> {
     _tooltipDurasiTidur = TooltipBehavior(
       enable: true,
       tooltipPosition: TooltipPosition.pointer,
-      format: 'point.y',
+      format: 'point.y Jam',
       header: 'Durasi Tidur',
     );
     currentDate = DateTime.now();
@@ -314,12 +304,16 @@ class _WeekPageState extends State<WeekPage> {
                                           Text(
                                             "${DateFormat("HH:mm").format(weekSleep!.averageSleep!.averageTime!)}",
                                             style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     )
                                   ],
                                 ),
+                              ),
+                              Text(
+                                "${DateFormat('y,mm,dd').format(weekSleep!.chartDuration!.elementAt(0).date!)}",
+                                style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                               )
                             ],
                           ),
@@ -377,48 +371,64 @@ class _WeekPageState extends State<WeekPage> {
                             },
                             majorGridLines: MajorGridLines(width: 0),
                             minorTicksPerInterval: 0),
-                        primaryYAxis: NumericAxis(axisLine: AxisLine(width: 0), decimalPlaces: 0, interval: 2),
+                        primaryYAxis: NumericAxis(
+                          axisLine: AxisLine(width: 0),
+                          decimalPlaces: 0,
+                          interval: 2,
+                        ),
                         title: ChartTitle(
                             alignment: ChartAlignment.near,
                             text: 'Durasi Tidur',
                             textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
-                        series: <ChartSeries>[
-                          ColumnSeries<DurasiTidur, DateTime>(
-                              dataSource: dataDurasiTidur,
+                        series: <ChartSeries<ChartDuration, dynamic>>[
+                          ColumnSeries<ChartDuration, dynamic>(
+                              dataSource: weekSleep!.chartDuration!,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5),
                                 topRight: Radius.circular(5),
                               ),
+                              color: Color.fromRGBO(227, 81, 89, 1),
                               selectionBehavior: _selectionBehaviorDuratiTidur,
-                              pointColorMapper: (DurasiTidur data, _) => data.color,
-                              xValueMapper: (DurasiTidur data, _) => data.x,
-                              yValueMapper: (DurasiTidur data, _) => data.y)
+                              xValueMapper: (ChartDuration data, _) => data.date,
+                              yValueMapper: (ChartDuration data, _) => data.duration!)
                         ]),
                   ),
                   _spaceV(),
                   Container(
                     child: SfCartesianChart(
-                      primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                      primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                      onDataLabelRender: (args) {
+                        args.text = DateTime.fromMillisecondsSinceEpoch(int.parse(args.text!)).hour.toString() +
+                            ':' +
+                            DateTime.fromMillisecondsSinceEpoch(int.parse(args.text!)).minute.toString();
+                      },
+                      primaryXAxis: DateTimeAxis(),
+                      primaryYAxis: NumericAxis(
+                        rangePadding: ChartRangePadding.additional,
+                        axisLabelFormatter: (AxisLabelRenderDetails args) {
+                          late String text;
+                          print(args.value);
+                          text = DateTime.fromMillisecondsSinceEpoch(args.value.toInt()).hour.toString() +
+                              ':' +
+                              DateTime.fromMillisecondsSinceEpoch(args.value.toInt()).minute.toString();
+                          return ChartAxisLabel(text, args.textStyle);
+                        },
+                      ),
                       tooltipBehavior: _tooltipMulaiTidur,
                       enableAxisAnimation: true,
                       title: ChartTitle(
                           alignment: ChartAlignment.near,
                           text: 'Mulai Tidur',
                           textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
-                      // primaryXAxis: NumericAxis(isInversed: true),
-                      // primaryYAxis: NumericAxis(isInversed: true),
                       series: <ChartSeries>[
-                        LineSeries<MulaiTidur, double>(
-                            dataSource: dataMulaiTidur,
-                            enableTooltip: true,
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     textStyle: TextStyle(color: Colors.white)),
-                            pointColorMapper: (MulaiTidur data, _) => data.color,
-                            markerSettings: MarkerSettings(isVisible: true),
-                            xValueMapper: (MulaiTidur data, _) => data.x,
-                            yValueMapper: (MulaiTidur data, _) => data.y),
+                        LineSeries<LineSleep, DateTime>(
+                          dataSource: weekSleep!.lineSleep!,
+                          enableTooltip: true,
+                          markerSettings: MarkerSettings(isVisible: true),
+                          xValueMapper: (LineSleep data, _) => data.sleep!,
+                          yValueMapper: (LineSleep data, _) {
+                            return data.sleep!.millisecondsSinceEpoch;
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -480,7 +490,6 @@ class _WeekPageState extends State<WeekPage> {
             color: Colors.white,
             size: 80,
           ));
-    ;
   }
 
   Widget _spaceV() => SizedBox(height: 15);
