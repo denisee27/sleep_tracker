@@ -19,7 +19,8 @@ loadPref(id, name, initials, email) async {
 
 class ApiServices {
   // final baseurl = 'http://192.168.18.1/sleeptracker';
-  final baseurl = 'http://192.168.18.197/sleeptracker';
+  // final baseurl = 'http://192.168.18.197/sleeptracker';
+  final baseurl = 'http://192.168.88.28/sleeptracker';
 
   //Login User
   Future loginUser(String email, String password) async {
@@ -159,6 +160,24 @@ class ApiServices {
   Future<SleepSummary> getWeekSleep() async {
     var token = await TokenAccess.getToken();
     var urlGet = '$baseurl/sleep/week';
+    final response = await http.get(
+      Uri.parse(urlGet),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final jsonresponse = json.decode(response.body)['result'];
+      return SleepSummary.fromJson(jsonresponse);
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  //Get Month Sleep
+  Future<SleepSummary> getMonthSleep() async {
+    var token = await TokenAccess.getToken();
+    var urlGet = '$baseurl/sleep/month';
     final response = await http.get(
       Uri.parse(urlGet),
       headers: {

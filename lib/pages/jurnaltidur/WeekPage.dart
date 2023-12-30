@@ -311,10 +311,6 @@ class _WeekPageState extends State<WeekPage> {
                                   ],
                                 ),
                               ),
-                              Text(
-                                "${DateFormat('y,mm,dd').format(weekSleep!.chartDuration!.elementAt(0).date!)}",
-                                style: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
-                              )
                             ],
                           ),
                         ),
