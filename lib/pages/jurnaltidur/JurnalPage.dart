@@ -26,7 +26,6 @@ class _JurnalPageState extends State<JurnalPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  @override
   Future<bool> _onBackPressed() {
     if (currentBackPressTime == null || DateTime.now().difference(currentBackPressTime!) > Duration(seconds: 2)) {
       currentBackPressTime = DateTime.now();

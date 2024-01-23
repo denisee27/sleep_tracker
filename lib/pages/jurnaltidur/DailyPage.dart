@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleeptracker_app/api/ApiServices.dart';
 import 'package:sleeptracker_app/models/DailySleep.dart';
-import 'package:sleeptracker_app/pages/result/intro.dart';
 
 class DailyPage extends StatefulWidget {
   const DailyPage({super.key});

@@ -18,9 +18,9 @@ loadPref(id, name, initials, email) async {
 }
 
 class ApiServices {
-  // final baseurl = 'http://192.168.18.1/sleeptracker';
   // final baseurl = 'http://192.168.18.197/sleeptracker';
-  final baseurl = 'http://192.168.88.28/sleeptracker';
+  final baseurl = 'https://sleeptracker.karyaoptima.com';
+  // final baseurl = 'http://192.168.1.4/sleeptracker';
 
   //Login User
   Future loginUser(String email, String password) async {
@@ -157,9 +157,12 @@ class ApiServices {
   }
 
   //Get Week Sleep
-  Future<SleepSummary> getWeekSleep() async {
+  Future<SleepSummary> getWeekSleep(
+    DateTime from,
+    DateTime to,
+  ) async {
     var token = await TokenAccess.getToken();
-    var urlGet = '$baseurl/sleep/week';
+    var urlGet = '$baseurl/sleep/week?from=$from&to=$to';
     final response = await http.get(
       Uri.parse(urlGet),
       headers: {
@@ -175,9 +178,11 @@ class ApiServices {
   }
 
   //Get Month Sleep
-  Future<SleepSummary> getMonthSleep() async {
+  Future<SleepSummary> getMonthSleep(
+    DateTime month,
+  ) async {
     var token = await TokenAccess.getToken();
-    var urlGet = '$baseurl/sleep/month';
+    var urlGet = '$baseurl/sleep/month?month=$month';
     final response = await http.get(
       Uri.parse(urlGet),
       headers: {

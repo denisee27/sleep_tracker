@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sleeptracker_app/pages/profile/ProfilePage.dart';
 
 class DetailProfilePage extends StatefulWidget {
   const DetailProfilePage({super.key});
@@ -31,7 +30,7 @@ class _DetailProfilePageState extends State<DetailProfilePage> {
                     CircleAvatar(
                       radius: 75,
                       backgroundImage: NetworkImage(
-                        'https://picsum.photos/id/237/200/300',
+                        'https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68',
                       ),
                     ),
                     Positioned(

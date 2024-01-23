@@ -15,7 +15,7 @@ class WeekPage extends StatefulWidget {
 class _WeekPageState extends State<WeekPage> {
   SleepSummary? weekSleep;
   bool loading = false;
-  DateTime? currentDate;
+  DateTime? currentDate = DateTime.now();
   final int daysToShow = 7;
 
   late TooltipBehavior _tooltipMulaiTidur;
@@ -23,35 +23,11 @@ class _WeekPageState extends State<WeekPage> {
   late TooltipBehavior _tooltipDurasiTidur;
   late SelectionBehavior _selectionBehaviorDuratiTidur;
 
-  final List<MulaiTidur> dataMulaiTidur = <MulaiTidur>[
-    MulaiTidur(2010, 10.53, Color.fromRGBO(255, 89, 153, 1)),
-    MulaiTidur(2011, 9.5, Color.fromRGBO(255, 89, 153, 1)),
-    MulaiTidur(2012, 10, Color.fromRGBO(255, 89, 153, 1)),
-    MulaiTidur(2013, 9.4, Color.fromRGBO(255, 89, 153, 1)),
-    MulaiTidur(2014, 5.8, Color.fromRGBO(255, 89, 153, 1)),
-    MulaiTidur(2015, 4.9, Color.fromRGBO(255, 89, 153, 1)),
-    MulaiTidur(2016, 4.5, Color.fromRGBO(255, 89, 153, 1)),
-    MulaiTidur(2017, 3.6, Color.fromRGBO(255, 89, 153, 1)),
-    MulaiTidur(2018, 3.43, Color.fromRGBO(255, 89, 153, 1)),
-  ];
-
-  final List<BangunTidur> dataBangunTidur = <BangunTidur>[
-    BangunTidur(2010, 10.53, Color.fromRGBO(255, 199, 84, 1)),
-    BangunTidur(2011, 9.5, Color.fromRGBO(255, 199, 84, 1)),
-    BangunTidur(2012, 10, Color.fromRGBO(255, 199, 84, 1)),
-    BangunTidur(2013, 9.4, Color.fromRGBO(255, 199, 84, 1)),
-    BangunTidur(2014, 5.8, Color.fromRGBO(255, 199, 84, 1)),
-    BangunTidur(2015, 4.9, Color.fromRGBO(255, 199, 84, 1)),
-    BangunTidur(2016, 4.5, Color.fromRGBO(255, 199, 84, 1)),
-    BangunTidur(2017, 3.6, Color.fromRGBO(255, 199, 84, 1)),
-    BangunTidur(2018, 3.43, Color.fromRGBO(255, 199, 84, 1)),
-  ];
-
   @override
   void initState() {
     super.initState();
     loading = true;
-    getData();
+    getData(currentDate!.subtract(Duration(days: daysToShow)), currentDate!,);
     _tooltipMulaiTidur = TooltipBehavior(
       enable: true,
       header: 'Mulai Tidur',
@@ -70,11 +46,10 @@ class _WeekPageState extends State<WeekPage> {
       format: 'point.y Jam',
       header: 'Durasi Tidur',
     );
-    currentDate = DateTime.now();
   }
 
-  getData() async {
-    SleepSummary response = await ApiServices().getWeekSleep();
+  getData(DateTime? start, DateTime? end) async {
+    SleepSummary response = await ApiServices().getWeekSleep(start!,end!);
     setState(() {
       weekSleep = response;
       loading = false;
@@ -91,6 +66,7 @@ class _WeekPageState extends State<WeekPage> {
       setState(() {
         currentDate = isIncrement ? currentDate!.add(Duration(days: daysToShow)) : currentDate!.subtract(Duration(days: daysToShow));
       });
+      getData(currentDate!.subtract(Duration(days: daysToShow)), currentDate!);
     }
 
     return !loading
@@ -390,71 +366,70 @@ class _WeekPageState extends State<WeekPage> {
                         ]),
                   ),
                   _spaceV(),
-                  Container(
-                    child: SfCartesianChart(
-                      onDataLabelRender: (args) {
-                        args.text = DateTime.fromMillisecondsSinceEpoch(int.parse(args.text!)).hour.toString() +
-                            ':' +
-                            DateTime.fromMillisecondsSinceEpoch(int.parse(args.text!)).minute.toString();
-                      },
-                      primaryXAxis: DateTimeAxis(),
-                      primaryYAxis: NumericAxis(
-                        rangePadding: ChartRangePadding.additional,
-                        axisLabelFormatter: (AxisLabelRenderDetails args) {
-                          late String text;
-                          print(args.value);
-                          text = DateTime.fromMillisecondsSinceEpoch(args.value.toInt()).hour.toString() +
-                              ':' +
-                              DateTime.fromMillisecondsSinceEpoch(args.value.toInt()).minute.toString();
-                          return ChartAxisLabel(text, args.textStyle);
-                        },
-                      ),
-                      tooltipBehavior: _tooltipMulaiTidur,
-                      enableAxisAnimation: true,
-                      title: ChartTitle(
-                          alignment: ChartAlignment.near,
-                          text: 'Mulai Tidur',
-                          textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
-                      series: <ChartSeries>[
-                        LineSeries<LineSleep, DateTime>(
-                          dataSource: weekSleep!.lineSleep!,
-                          enableTooltip: true,
-                          markerSettings: MarkerSettings(isVisible: true),
-                          xValueMapper: (LineSleep data, _) => data.sleep!,
-                          yValueMapper: (LineSleep data, _) {
-                            return data.sleep!.millisecondsSinceEpoch;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  _spaceV(),
-                  Container(
-                    child: SfCartesianChart(
-                      primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                      primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                      tooltipBehavior: _tooltipBangunTidur,
-                      enableAxisAnimation: true,
-                      title: ChartTitle(
-                          alignment: ChartAlignment.near,
-                          text: 'Bangun Tidur',
-                          textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
-                      // primaryXAxis: NumericAxis(isInversed: true),
-                      // primaryYAxis: NumericAxis(isInversed: true),
-                      series: <ChartSeries>[
-                        LineSeries<BangunTidur, double>(
-                            dataSource: dataBangunTidur,
-                            enableTooltip: true,
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     textStyle: TextStyle(color: Colors.white)),
-                            pointColorMapper: (BangunTidur data, _) => data.color,
-                            markerSettings: MarkerSettings(isVisible: true),
-                            xValueMapper: (BangunTidur data, _) => data.x,
-                            yValueMapper: (BangunTidur data, _) => data.y),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   child: SfCartesianChart(
+                  //     onDataLabelRender: (args) {
+                  //       args.text = DateTime.fromMillisecondsSinceEpoch(int.parse(args.text!)).hour.toString() +
+                  //           ':' +
+                  //           DateTime.fromMillisecondsSinceEpoch(int.parse(args.text!)).minute.toString();
+                  //     },
+                  //     primaryXAxis: DateTimeAxis(),
+                  //     primaryYAxis: NumericAxis(
+                  //       rangePadding: ChartRangePadding.additional,
+                  //       axisLabelFormatter: (AxisLabelRenderDetails args) {
+                  //         late String text;
+                  //         text = DateTime.fromMillisecondsSinceEpoch(args.value.toInt()).hour.toString() +
+                  //             ':' +
+                  //             DateTime.fromMillisecondsSinceEpoch(args.value.toInt()).minute.toString();
+                  //         return ChartAxisLabel(text, args.textStyle);
+                  //       },
+                  //     ),
+                  //     tooltipBehavior: _tooltipMulaiTidur,
+                  //     enableAxisAnimation: true,
+                  //     title: ChartTitle(
+                  //         alignment: ChartAlignment.near,
+                  //         text: 'Mulai Tidur',
+                  //         textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
+                  //     series: <ChartSeries>[
+                  //       LineSeries<LineSleep, DateTime>(
+                  //         dataSource: weekSleep!.lineSleep!,
+                  //         enableTooltip: true,
+                  //         markerSettings: MarkerSettings(isVisible: true),
+                  //         xValueMapper: (LineSleep data, _) => data.sleep!,
+                  //         yValueMapper: (LineSleep data, _) {
+                  //           return data.sleep!.millisecondsSinceEpoch;
+                  //         },
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // _spaceV(),
+                  // Container(
+                  //   child: SfCartesianChart(
+                  //     primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                  //     primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                  //     tooltipBehavior: _tooltipBangunTidur,
+                  //     enableAxisAnimation: true,
+                  //     title: ChartTitle(
+                  //         alignment: ChartAlignment.near,
+                  //         text: 'Bangun Tidur',
+                  //         textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
+                  //     // primaryXAxis: NumericAxis(isInversed: true),
+                  //     // primaryYAxis: NumericAxis(isInversed: true),
+                  //     series: <ChartSeries>[
+                  //       LineSeries<BangunTidur, double>(
+                  //           dataSource: dataBangunTidur,
+                  //           enableTooltip: true,
+                  //           // dataLabelSettings: DataLabelSettings(
+                  //           //     isVisible: true,
+                  //           //     textStyle: TextStyle(color: Colors.white)),
+                  //           pointColorMapper: (BangunTidur data, _) => data.color,
+                  //           markerSettings: MarkerSettings(isVisible: true),
+                  //           xValueMapper: (BangunTidur data, _) => data.x,
+                  //           yValueMapper: (BangunTidur data, _) => data.y),
+                  //     ],
+                  //   ),
+                  // ),
 
                   // SfCartesianChart(
                   //     primaryXAxis: CategoryAxis(),

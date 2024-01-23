@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleeptracker_app/api/ApiServices.dart';
 import 'package:sleeptracker_app/models/SleepHistory.dart';
-import 'package:sleeptracker_app/pages/result/intro.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MonthPage extends StatefulWidget {
@@ -16,8 +15,8 @@ class MonthPage extends StatefulWidget {
 class _MonthPageState extends State<MonthPage> {
   SleepSummary? monthSleep;
   bool loading = false;
-  DateTime? currentDate;
-  final int daysToShow = 7;
+  DateTime? currentDate = DateTime.now();
+  final int daysToShow = 31;
 
   late TooltipBehavior _tooltipMulaiTidur;
   late TooltipBehavior _tooltipBangunTidur;
@@ -60,7 +59,9 @@ class _MonthPageState extends State<MonthPage> {
   void initState() {
     super.initState();
     loading = true;
-    getData();
+    getData(
+      currentDate!,
+    );
     _tooltipMulaiTidur = TooltipBehavior(
       enable: true,
       header: 'Mulai Tidur',
@@ -82,8 +83,9 @@ class _MonthPageState extends State<MonthPage> {
     currentDate = DateTime.now();
   }
 
-  getData() async {
-    SleepSummary response = await ApiServices().getMonthSleep();
+  getData(DateTime? month) async {
+    print(month);
+    SleepSummary response = await ApiServices().getMonthSleep(month!);
     setState(() {
       monthSleep = response;
       loading = false;
@@ -100,6 +102,7 @@ class _MonthPageState extends State<MonthPage> {
       setState(() {
         currentDate = isIncrement ? currentDate!.add(Duration(days: daysToShow)) : currentDate!.subtract(Duration(days: daysToShow));
       });
+      getData(currentDate!);
     }
 
     return !loading
@@ -174,7 +177,7 @@ class _MonthPageState extends State<MonthPage> {
                                     child: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 15))),
                             _spaceH(),
                             Text(
-                              "${DateFormat("d MMM").format(_calculateStartDate())} - ${DateFormat("d MMM").format(currentDate!)}",
+                              "${DateFormat("MMMM").format(currentDate!)}",
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 15),
                             ),
                             _spaceH(),
@@ -398,60 +401,60 @@ class _MonthPageState extends State<MonthPage> {
                               yValueMapper: (ChartDuration data, _) => data.duration!)
                         ]),
                   ),
-                  _spaceV(),
-                  Container(
-                    child: SfCartesianChart(
-                      primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                      primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                      tooltipBehavior: _tooltipMulaiTidur,
-                      enableAxisAnimation: true,
-                      title: ChartTitle(
-                          alignment: ChartAlignment.near,
-                          text: 'Mulai Tidur',
-                          textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
-                      // primaryXAxis: NumericAxis(isInversed: true),
-                      // primaryYAxis: NumericAxis(isInversed: true),
-                      series: <ChartSeries>[
-                        LineSeries<MulaiTidur, double>(
-                            dataSource: dataMulaiTidur,
-                            enableTooltip: true,
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     textStyle: TextStyle(color: Colors.white)),
-                            pointColorMapper: (MulaiTidur data, _) => data.color,
-                            markerSettings: MarkerSettings(isVisible: true),
-                            xValueMapper: (MulaiTidur data, _) => data.x,
-                            yValueMapper: (MulaiTidur data, _) => data.y),
-                      ],
-                    ),
-                  ),
-                  _spaceV(),
-                  Container(
-                    child: SfCartesianChart(
-                      primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                      primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
-                      tooltipBehavior: _tooltipBangunTidur,
-                      enableAxisAnimation: true,
-                      title: ChartTitle(
-                          alignment: ChartAlignment.near,
-                          text: 'Bangun Tidur',
-                          textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
-                      // primaryXAxis: NumericAxis(isInversed: true),
-                      // primaryYAxis: NumericAxis(isInversed: true),
-                      series: <ChartSeries>[
-                        LineSeries<BangunTidur, double>(
-                            dataSource: dataBangunTidur,
-                            enableTooltip: true,
-                            // dataLabelSettings: DataLabelSettings(
-                            //     isVisible: true,
-                            //     textStyle: TextStyle(color: Colors.white)),
-                            pointColorMapper: (BangunTidur data, _) => data.color,
-                            markerSettings: MarkerSettings(isVisible: true),
-                            xValueMapper: (BangunTidur data, _) => data.x,
-                            yValueMapper: (BangunTidur data, _) => data.y),
-                      ],
-                    ),
-                  ),
+                  // _spaceV(),
+                  // Container(
+                  //   child: SfCartesianChart(
+                  //     primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                  //     primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                  //     tooltipBehavior: _tooltipMulaiTidur,
+                  //     enableAxisAnimation: true,
+                  //     title: ChartTitle(
+                  //         alignment: ChartAlignment.near,
+                  //         text: 'Mulai Tidur',
+                  //         textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
+                  //     // primaryXAxis: NumericAxis(isInversed: true),
+                  //     // primaryYAxis: NumericAxis(isInversed: true),
+                  //     series: <ChartSeries>[
+                  //       LineSeries<MulaiTidur, double>(
+                  //           dataSource: dataMulaiTidur,
+                  //           enableTooltip: true,
+                  //           // dataLabelSettings: DataLabelSettings(
+                  //           //     isVisible: true,
+                  //           //     textStyle: TextStyle(color: Colors.white)),
+                  //           pointColorMapper: (MulaiTidur data, _) => data.color,
+                  //           markerSettings: MarkerSettings(isVisible: true),
+                  //           xValueMapper: (MulaiTidur data, _) => data.x,
+                  //           yValueMapper: (MulaiTidur data, _) => data.y),
+                  //     ],
+                  //   ),
+                  // ),
+                  // _spaceV(),
+                  // Container(
+                  //   child: SfCartesianChart(
+                  //     primaryXAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                  //     primaryYAxis: NumericAxis(labelStyle: TextStyle(color: Colors.white)),
+                  //     tooltipBehavior: _tooltipBangunTidur,
+                  //     enableAxisAnimation: true,
+                  //     title: ChartTitle(
+                  //         alignment: ChartAlignment.near,
+                  //         text: 'Bangun Tidur',
+                  //         textStyle: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500)),
+                  //     // primaryXAxis: NumericAxis(isInversed: true),
+                  //     // primaryYAxis: NumericAxis(isInversed: true),
+                  //     series: <ChartSeries>[
+                  //       LineSeries<BangunTidur, double>(
+                  //           dataSource: dataBangunTidur,
+                  //           enableTooltip: true,
+                  //           // dataLabelSettings: DataLabelSettings(
+                  //           //     isVisible: true,
+                  //           //     textStyle: TextStyle(color: Colors.white)),
+                  //           pointColorMapper: (BangunTidur data, _) => data.color,
+                  //           markerSettings: MarkerSettings(isVisible: true),
+                  //           xValueMapper: (BangunTidur data, _) => data.x,
+                  //           yValueMapper: (BangunTidur data, _) => data.y),
+                  //     ],
+                  //   ),
+                  // ),
 
                   // SfCartesianChart(
                   //     primaryXAxis: CategoryAxis(),

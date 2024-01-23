@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(
-                'https://picsum.photos/id/237/200/300',
+                'https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68',
               ),
               radius: 100,
             ),
